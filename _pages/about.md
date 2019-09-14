@@ -6,27 +6,17 @@ nav: about
 ---
 
 <div class="text-center mt-5">
-  <img class="img-fluid rounded-circle profile-img shadow" src="{{ 'prof_pic.jpg' | prepend: '/assets/img/' | prepend: site.baseurl | prepend: site.url }}">
+  <img class="img-fluid rounded-circle profile-img shadow" src="{{ 'prof_pic.jpeg' | prepend: '/assets/img/' | prepend: site.baseurl | prepend: site.url }}">
 </div>
 
 <div class="col mt-4">
-  <h1 class="title text-center font-weight-bold">Anthony Platanios</h1>
-  <div class="row mt-3 mb-3">
-    <div class="col-sm-6">
-      <h6 class="mt-1 text-left text-sm-right" style="font-stretch: ultra-condensed;">
-        <a style="color: rgb(60, 72, 88);" href="http://www.ml.cmu.edu/" target="_blank">Machine Learning Department</a><br/>
-        <a style="color: rgb(60, 72, 88);" href="http://www.cs.cmu.edu/" target="_blank">School of Computer Science</a><br/>
-        <a style="color: rgb(60, 72, 88);" href="http://www.cmu.edu/" target="_blank">Carnegie Mellon University</a>
-      </h6>
-    </div>
-    <div class="col-sm-6">
-      <h6 class="mt-1 text-left text-sm-left" style="font-stretch: ultra-condensed;">
-        8221 Gates Hillman Center<br/>
-        5000 Forbes Ave<br/>
-        Pittsburgh, PA 15213
-      </h6>
-    </div>
-  </div>
+  <h1 class="title text-center font-weight-bold">Yatin Gilhotra</h1>
+  <h5 class="text-center text-sm-center" style="font-stretch: ultra-condensed;">
+    Analog and Mixed Signal Design Engineer
+  </h5>
+  <h5 class="text-center text-sm-center" style="font-stretch: ultra-condensed;">
+    <a style="color: rgb(60, 72, 88);" href="https://www.synopsys.com/designware-ip/interface-ip.html" target="_blank">DesignWare Interface IP Group, Synopsys Inc.</a><br/>
+  </h5>
 </div>
 
 <!-- Introduction -->
@@ -38,6 +28,7 @@ nav: about
 </div>
 
 <!-- News -->
+<!--
 <div class="news mt-3 p-0">
   <h1 class="title mb-4 p-0">news</h1>
   {% assign news = site.news | reverse %}
@@ -54,3 +45,4 @@ nav: about
     </div>
   {% endfor %}
 </div>
+-->
