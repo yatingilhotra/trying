@@ -1,17 +1,16 @@
 ---
 layout: project
-title: TensorFlow Scala
+title: Current Mode AdEx Neuron
 nav: projects
 importance: 75
-description: type-safe linear algebra, tensors, and neural networks
-img: /assets/img/tensorflow_for_scala_logo.svg
-github: eaplatanios/tensorflow_scala
+description: ultra low power neuron implementation for large scale neuromorphic cores
+img: /assets/img/neuron.png
 ---
 
-This library is a Scala API for [https://www.tensorflow.org](https://www.tensorflow.org). It attempts to provide most of 
-the functionality provided by the official Python API, while at the same type being strongly-typed and adding some new 
-features. It is a work in progress and a project I started working on for my personal research purposes. Much of the API 
-should be relatively stable by now, but things are still likely to change. That is why there is no official release of 
+This library is a Scala API for [https://www.tensorflow.org](https://www.tensorflow.org). It attempts to provide most of
+the functionality provided by the official Python API, while at the same type being strongly-typed and adding some new
+features. It is a work in progress and a project I started working on for my personal research purposes. Much of the API
+should be relatively stable by now, but things are still likely to change. That is why there is no official release of
 this library yet.
 
 Please refer to the main website for documentation and tutorials. Here
@@ -25,22 +24,22 @@ are a few useful links:
 ## Main Features
 
 - Easy manipulation of tensors and computations involving tensors (similar to NumPy in Python):
-  
+
   ```scala
   val t1 = Tensor( 1.2, 4.5)
   val t2 = Tensor(-0.2, 1.1)
   t1 + t2 == Tensor(1.0, 5.6)
   ```
-  
-- High-level API for creating, training, and using neural networks. For example, the following code shows how simple it 
-  is to train a multi-layer perceptron for MNIST using TensorFlow for Scala. Here we omit a lot of very powerful 
+
+- High-level API for creating, training, and using neural networks. For example, the following code shows how simple it
+  is to train a multi-layer perceptron for MNIST using TensorFlow for Scala. Here we omit a lot of very powerful
   features such as summary and checkpoint savers, for simplicity, but these are also very simple to use.
-  
+
   ```scala
   import org.platanios.tensorflow.api._
   import org.platanios.tensorflow.api.tf.learn._
   import org.platanios.tensorflow.data.loaders.MNISTLoader
-  
+
   // Load and batch data using pre-fetching.
   val dataSet = MNISTLoader.load(Paths.get("/tmp"))
   val trainImages = DatasetFromSlices(dataSet.trainImages)
@@ -51,11 +50,11 @@ are a few useful links:
         .shuffle(10000)
         .batch(256)
         .prefetch(10)
-  
+
   // Create the MLP model.
   val input = Input(UINT8, Shape(-1, 28, 28))
   val trainInput = Input(UINT8, Shape(-1))
-  val layer = Flatten() >> Cast(FLOAT32) >> 
+  val layer = Flatten() >> Cast(FLOAT32) >>
       Linear(128, name = "Layer_0") >> ReLU(0.1f) >>
       Linear(64, name = "Layer_1") >> ReLU(0.1f) >>
       Linear(32, name = "Layer_2") >> ReLU(0.1f) >>
@@ -64,15 +63,15 @@ are a few useful links:
   val loss = SparseSoftmaxCrossEntropy() >> Mean()
   val optimizer = GradientDescent(1e-6)
   val model = Model(input, layer, trainInput, trainingInputLayer, loss, optimizer)
-  
+
   // Create an estimator and train the model.
   val estimator = Estimator(model)
   estimator.train(trainData, StopCriteria(maxSteps = Some(1000000)))
   ```
-  
-  And by changing a few lines to the following code, you can get checkpoint capability, summaries, and seamless 
+
+  And by changing a few lines to the following code, you can get checkpoint capability, summaries, and seamless
   integration with TensorBoard:
-  
+
   ```scala
   loss = loss >> tf.learn.ScalarSummary("Loss")                  // Collect loss summaries for plotting
   val summariesDir = Paths.get("/tmp/summaries")                 // Directory in which to save summaries and checkpoints
@@ -84,9 +83,9 @@ are a few useful links:
       CheckpointSaverHook(summariesDir, StepHookTrigger(1000))), // Save checkpoint every 1000 steps
     tensorBoardConfig = TensorBoardConfig(summariesDir))         // Launch TensorBoard server in the background
   ```
-  
+
   If you now browse to `https://127.0.0.1:6006` while training, you can see the training progress:
-  
+
   <div class="col">
     <img src="{{ '/assets/img/tensorboard_mnist_example_plot.png' | prepend: site.baseurl | prepend: site.url }}" alt="tensorboard_mnist_example_plot" width="100%">
   </div>
@@ -95,7 +94,7 @@ are a few useful links:
 
   ```scala
   import org.platanios.tensorflow.api._
-  
+
   val inputs = tf.placeholder(FLOAT32, Shape(-1, 10))
   val outputs = tf.placeholder(FLOAT32, Shape(-1, 10))
   val predictions = tf.createWith(nameScope = "Linear") {
@@ -108,14 +107,14 @@ are a few useful links:
   ```
 
 - Numpy-like indexing/slicing for tensors. For example:
-  
+
   ```scala
   tensor(2 :: 5, ---, 1) // is equivalent to numpy's 'tensor[2:5, ..., 1]'
   ```
-  
-- Efficient interaction with the native library that avoids unnecessary copying of data. All tensors are created and 
-  managed by the native TensorFlow library. When they are passed to the Scala API (e.g., fetched from a TensorFlow 
-  session), we use a combination of weak references and a disposing thread running in the background. Please refer to 
+
+- Efficient interaction with the native library that avoids unnecessary copying of data. All tensors are created and
+  managed by the native TensorFlow library. When they are passed to the Scala API (e.g., fetched from a TensorFlow
+  session), we use a combination of weak references and a disposing thread running in the background. Please refer to
   [`Disposer.scala`](https://github.com/eaplatanios/tensorflow_scala/blob/master/modules/api/src/main/scala/org/platanios/tensorflow/api/utilities/Disposer.scala),
   for the implementation.
 

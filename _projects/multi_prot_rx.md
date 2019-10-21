@@ -1,13 +1,130 @@
 ---
 layout: project
-title: machine translation
+title: Multi-Protocol Receiver
 nav: projects
-importance: 100
-description: enhacing machine translation using contextual parameter generation and curriculum learning
-img: /assets/img/projects/machine_translation/machine_translation.svg
-github: eaplatanios/symphony-mt
-wordpress: https://blog.ml.cmu.edu/2019/01/14/contextual-parameter-generation-for-universal-neural-machine-translation/
+importance: 110
+description: a 10Gbps-1.6Gbps receiver supporting various ethernet, usb, and display port communication protocols
+img: /assets/img/multi_prot_rx.svg
 ---
+<div class="container-fluid p-0">
+  <img class="img-responsive col-12" src="{{ '/assets/img/multi_prot_rx.svg' | prepend: site.baseurl | prepend: site.url }}" alt="overview figure">
+  <h6 class="font-italic text-center" style="color: #78909c;"><u>Figure 1:</u> Overview of the receiver. My design contribution includes (a) Summmer, (b) Offset Correction Loop, (c) Samplers, (d) Data Paths(TSPC Flops), (e) Clock Tree, (f) Deserializer</h6>
+</div>
+
+High speed serial interfaces are the backbone of modern physical communication systems such as USB, HDMI, and Ethernet devices, processor-memory interfaces personal computing devices, etc.
+
+As the speeds of these communication links increases, they suffer more attenuation while passing through a channel, which may be a PCB, a coaxial cable, an optical fiber, or an inductively coupled link. Other than attenuation, the signals also undergo non-linear transformations, and they disperse when they pass through a channel. The channel's non-linear response exists because of impedance mismatches due to discontinuities in the channel, which causes reflections. Any channel can be characterized by it's impulse response, an example of which can be seen in Figure 1. For high loss channels, the signal at the end of the channel can become unreadable, which is why, it is of paramount importance to properly equalize the channel response. There are two primary techniques to equalize the channel response, one is CTLE(Continuous Time Linear Equalizer), and the other one is DFE(Decision Feedback Equalizer).   
+
+CTLE, as the name suggests, is a linear equalizer, and generates a linear inverse response of the channel, which cannot account for the complete picture because of the non-linear response of the channel. A need for another non-linear kind of equalization remains, and DFE solves that purpose. More often than not, a combination of both is required to optimally equalize the channel response. CTLE does the job of amplifying the signal, maintaining the response as shown in Figure 1 intact, and DFE removes the power present in the post-cursor taps, by cancelling cancelling their amplitudes, so onlt the main-cursor remains.
+
+<div class="container-fluid text-center mt-4 p-0">
+  <img class="img-responsive col-12 col-sm-10 col-md-6 ml-auto mr-auto" src="{{ '/assets/img/dfe.svg' | prepend: site.baseurl | prepend: site.url }}" alt="overview figure">
+  <h6 class="font-italic text-center mt-2" style="color: #78909c;"><u>Figure 2:</u> A Typical Channel Response</h6>
+</div>
+
+
+There are two types of DFE schemes possible: Rolled and Unrolled DFE, as shown in Figure 2. For high speed systems, generally unrolled DFE(also known as Speculative DFE) implementation is preferred for first(or probably second also) tap. It is because it reduces the number of operations happening in 1UI timing path, as it is challenging to meet 1UI timing paths because of the circuit, and routing delays.
+
+The idea of the receiver shown in Figure 4 is to have proper terminations at the input to minimize reflections, have CTLE, and DFE to equalize the channel response, have a Clock and Data Recovery(CDR) System to generate clocks for processing, a Clock Tree to distribute different phases of clocks with minimal skew, and a Deserializer, which converts single lane data into multiple parallel lanes, and provides it to digital signal processing blocks for implementing all sorts of correction and calibration algorithms.
+
+My role in this project was to design a 1Tap Speculative, 5 Tap DFE system(which includes Comparators, Offset Correction Loop, High Speed Flip-Flops, and Summer), Clock Distribution System, CDR Phase Detector, and Deserializer.
+
+<div class="container-fluid text-center mt-4 p-0">
+  <img class="img-responsive col-12 col-sm-10 col-md-6 ml-auto mr-auto" src="{{ '/assets/img/dfe_type.svg' | prepend: site.baseurl | prepend: site.url }}" alt="overview figure">
+  <h6 class="font-italic text-center mt-2" style="color: #78909c;"><u>Figure 3:</u> Types of DFE Implementstions: (a) Rolled DFE  (b) Unrolled(Speculative) DFE</h6>
+</div>
+
+
+
+applications where high speed transceivers are useful.
+how to achieve high speeds with higher channel losses. talk about the need to equalize the channel loss. Linear as well as non-linear equalization is required.
+Even after equalizing, you don't get great output swings. you need low sensitivity, low offset samplers to precisely sample the data.
+To cancel the offset, you need high precision DAC.
+Then you need high speed flops to implement speculative dfe and other high speed daa paths.
+
+
+
+
+
+
+<h3 class="title mt-4 p-0 text-left">DFE Architecture</h3>
+
+A 1-Tap Speculative, 5-Tap DFE architecture is implemented to effectively cancel the 5 post-cursor taps of the channel impulse response, as shown in Figure 4. First tap is implemented in an unrolled manner. The reference branch of the 1-bit comparator which is used for offset calibration is used for implementing the H1-Tap as well. All other taps are just the resampled and delayed versions of the comparator output, which are fed back to the summer to get added or subtracted to the original data signal, which then eventually comes back to the comparator input, hence completing the loop.
+
+The DFE follows the following equation:
+
+$$ v_{dfe} = v_{in} \pm h_1 \pm h_2 \pm h_3 \pm h_4 \pm h_5 $$
+
+where \(v_{dfe}\) is the dfe corrected signal, \(v_{in}\) is the input to the DFE system, and h1, h2, h3, h4, h5 are the tap magnitudes, added or subtracted from \(v_{in}\) based on the previous bit values.
+
+
+<div class="container-fluid p-0">
+  <img class="img-responsive col-12" src="{{ '/assets/img/dfe_arch.svg' | prepend: site.baseurl | prepend: site.url }}" alt="overview figure">
+  <h6 class="font-italic text-center" style="color: #78909c;"><u>Figure 4:</u> A 1-Tap Speculative, 5 Tap Decision Feedback Equalizer</h6>
+</div>
+
+<h3 class="title mt-4 p-0 text-left">Summer</h3>
+
+<div class="container-fluid text-center mt-4 p-0">
+  <img class="img-responsive col-12 col-sm-10 col-md-6 ml-auto mr-auto" src="{{ '/assets/img/summer.svg' | prepend: site.baseurl | prepend: site.url }}" alt="overview figure">
+  <h6 class="font-italic text-center mt-2" style="color: #78909c;"><u>Figure 5:</u> Summer</h6>
+</div>
+
+
+<h3 class="title mt-4 p-0 text-left">Samplers</h3>
+
+<div class="container-fluid text-center mt-4 p-0">
+  <img class="img-responsive col-12 col-sm-10 col-md-6 ml-auto mr-auto" src="{{ '/assets/img/comparator.svg' | prepend: site.baseurl | prepend: site.url }}" alt="overview figure">
+  <h6 class="font-italic text-center mt-2" style="color: #78909c;"><u>Figure 6:</u> 1 bit Comparator (Sampler)</h6>
+</div>
+
+
+<h3 class="title mt-4 p-0 text-left">Current Steering DAC</h3>
+
+<div class="container-fluid text-center mt-4 p-0">
+  <img class="img-responsive col-12 col-sm-10 col-md-6 ml-auto mr-auto" src="{{ '/assets/img/current_steering_dac.svg' | prepend: site.baseurl | prepend: site.url }}" alt="overview figure">
+  <h6 class="font-italic text-center mt-2" style="color: #78909c;"><u>Figure 7:</u> N Bit Thermometric Current Steering DAC</h6>
+</div>
+
+
+
+Comparator design:
+Comparator is a very important part of all this. You need high speed, low power comparator(because there are going to be many of them). You need very low sensitivity for the comparator because even after the equalization, you're not gonna get a huge eye opening at the samplers. And, the clk2q increases as the eye openings get smaller, so you gotta account for that too. Clk2q must be smaller than 1UI for rolled DFE, and 1.5UI for unrolled DFE implementations. Talk about Clk2Q, offset, and noise, with diagrams, and how to account for them.
+
+<h3 class="title mt-4 p-0 text-left">TSPC Flip-Flops</h3>
+
+TSPC(True Single-Phase Clock) Logic, as the name suggests is a family of logic circuits which uses just one clock phase to implement an operation, and doesn't require sets of non-overlapping clocks. This inherent property of TSPC logic eases the implementation of multiple phase clock distribution in high speed systems, a challenging task otherwise. Logic circuits requiring multiple clock phases have a propencity to fail if a certain amount of skew gets introduced in it's input clock phases. The use of TSPC logic eliminates the requirement of multiple clock phases, and the need to carefully match the clock-phases for implementing a unit logic operation. Matching may be required between logic units on a system level, which is a seperate issue, but the TSPC logic certainly eases the design of clock-distribution. Other reason for it's widespread populatrity is it less bulky, and simpler logic (compared to other logic families), and hence suitable for high speed, and low power/area designs.      
+
+The speed of any system is defined by the timing paths it contains. The limiting timing path, the one with the highest latency for the operation it performs, decides the speed of the system, i.e. the frequency of the clock it will run on. For a digital system shown in Figure 1<clock_system>, the time \(t_1\), which is defined as the clock to output delay of the flop, the time \(t_2\), which is the latency of the logic, and the setup time of the flop define the minimum time-period \(T\) of the clock.
+
+<div class="container-fluid text-center mt-4 p-0">
+  <img class="img-responsive col-12 col-sm-10 col-md-6 ml-auto mr-auto" src="{{ '/assets/img/clock_system.svg' | prepend: site.baseurl | prepend: site.url }}" alt="overview figure">
+  <h6 class="font-italic text-center mt-2" style="color: #78909c;"><u>Figure 8:</u> A two flop clock system</h6>
+</div>
+
+
+$$ {\bf t}_1 + {\bf t}_2 + {\bf t}_{setup} < {\bf T}$$
+
+In reality, skew while distributing the clocks, and random/deterministic jitter is also present in the clocks, which modifies the above equation like this:
+
+$$ {\bf t}_1 + {\bf t}_2 + {\bf t}_{setup} + {\bf t}_{skew} + {\bf t}_{jitter} < {\bf T},$$
+
+where \(T\), is the time period of the clock, and related to the frequency(Hz) of clock according to the relation:
+
+$$ {\bf T} = \frac{1}{f_{clk}}$$
+
+It can be easily inferred from this equation that having lower clock to output delays \(t_1\), lower setup time of the flop \(t_2\), is essential to have a high speed system. The understanding of how to get these parameters under desired specifications, and trade-offs between them is handy in order to reach optimum designs.   
+
+<div class="container-fluid text-center mt-4 p-0">
+  <img class="img-responsive col-12 col-sm-10 col-md-6 ml-auto mr-auto" src="{{ '/assets/img/tspc.svg' | prepend: site.baseurl | prepend: site.url }}" alt="overview figure">
+  <h6 class="font-italic text-center mt-2" style="color: #78909c;"><u>Figure 9:</u> TSPC D Flip-Flop</h6>
+</div>
+
+
+
+
+
+{% comment %}
 
 During my PhD I worked on a couple of interesting projects related to machine translation. In this page I plan to talk about two of them: one which introduced the idea of <i>contextual parameter generation (CPG)</i> and one which proposes a novel framework for curriculum learning and applies it to the problem of machine translation. The following post is currently about the first project, but it will soon be updated with information about the second.
 
@@ -16,7 +133,7 @@ During my PhD I worked on a couple of interesting projects related to machine tr
 </div>
 
 <div class="container-fluid p-0">
-  <img class="img-responsive col-12" src="{{ '/assets/img/contextual_parameter_generation.svg' | prepend: site.baseurl | prepend: site.url }}" alt="overview figure">
+  <img class="img-responsive col-12" src="{{ '/assets/img/multi_prot_rx.svg' | prepend: site.baseurl | prepend: site.url }}" alt="overview figure">
   <h6 class="font-italic text-center" style="color: #78909c;"><u>Figure 1:</u> Overview of the contextual parameter generator that is introduced in this post. The top part of the figure shows a typical neural machine translation system (consisting of an encoder and a decoder network). The bottom part, shown in red, shows our parameter generator component.</h6>
 </div>
 
@@ -272,3 +389,5 @@ During my PhD I worked on a couple of interesting projects related to machine tr
   <br/><br/>
   Minh-Thang Luong, Quoc V Le, Ilya Sutskever, Oriol Vinyals, and Lukasz Kaiser 2016. <a href="https://arxiv.org/abs/1511.06114" target="_blank"><i>Multi-task Sequence to Sequence Learning</i></a>. In International Conference on Learning Representations.
 </div>
+
+{% endcomment %}
