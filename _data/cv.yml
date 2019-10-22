@@ -13,7 +13,7 @@
 - title: Research Interests
   type: list
   contents:
-    - High Speed, and High Frequency wireline and wireless communication systems.
+    - High Frequency wireline systems, and wireless communication systems. Emerging applications of RF Integrated Circuits.
     - Brain Inspired Computing, Low Power Analog Signal Processing for Neuromorphic Cores.
     - Neural Decoding, Understanding Neural Circuits, neural activity detectors, and high channel neuro-recording/stimulation systems.
 - title: Education
@@ -24,29 +24,29 @@
       description:
         - '<u>Percentage</u> <b>81.54%</b>'
         - '<u>Awarded</u>: First Class with Distinction (for Academic Excellence)'
-        - '<u>Advisor:</u> <a href="http://dtu.irins.org/profile/66992" target="_blank"><b>Prof. Rajeshwari Pandey</b></a>.'
+        - '<u>Advisor:</u> <a href="http://dtu.irins.org/profile/66992" target="_blank"><b>Prof. Rajeshwari Pandey</b></a>, <u>Co-Advisor:</u> <a href="http://dtu.irins.org/profile/66991" target="_blank"><b>Prof. Neeta Pandey</b></a>.'
         - title: 'Ultra-Low Power, Ultra Low Transconductance <i>Gm-C</i> OTA for Sub-Hertz applications using Dynamic Thresholding, and Subthreshold Operation'
           contents:
-            - Designed 0.3Hz first order filter, achieving nominally 25% power reduction against state-of-the-art with lower input pair mismatch and flicker noise power, with minimal trade-off in the dynamic range.
-        - title: 'OTRA Based Piece-Wise Linear VTC Generators and their application in High-Frequency Sinusoid Generation'
-          contents:
-            - Designed
+            - Studied the analog properties of a DTMOS transistor in sub-threshold region, and implemented the findings for low power analog design.
+            - Designed 0.3Hz filters for biomedical applications, achieving nominally <b>25%</b> power reduction against regular CMOS designs, with lower input pair mismatch and flicker noise power, with minimal trade-off in the dynamic range.
+        - 'OTRA Based Piece-Wise Linear VTC Generators and their application in High-Frequency Sinusoid Generation.'
+        - 'New topologies for OTRA based programmable precision half-wave and full-wave rectifiers.'
         - title: 'Research Assistant, <a href="http://dsad.in/" target="_blank"><b>Digital System Architecture and Design (DSAD) Group</b></a>.'
           contents:
             - <u>Advisor:</u> <a href="http://dtu.irins.org/profile/66991" target="_blank"><b> Prof. Neeta Pandey</b></a>.
-            - Designed an FPGA Based Floating Point Gauss-Seidel Iterative Solver.
+            - An FPGA Based Floating Point Gauss-Seidel Iterative Solver.
 
 
     - title: All India Senior School Certificate Examination(AISSCE), CBSE
       year: 2014
       description:
-        - '<u>Percentage</u> 96.6%.'
+        - '<u>Aggregate:</u> 96.6%'
         - '<u>All India Rank:</u> 955 (Top 0.001% in the Country)'
-        - 'Majored in Physics, Mathematics, Chemistry, English Language, and Instrumental Music'
+        - 'Majored in Physics, Mathematics, Chemistry, English, and Instrumental Music'
         - '<u>Awarded:</u> <b>INSPIRE Scholarship for Higher Education</b>.'
-        - '<u>Awarded:</u> Gold Medal in School(Class of 300)'
-        - '<u>Awarded</u>: Certificate of Merit for Music Instrumental Melody-The Sitar, by CBSE. Awarded to only 29 Candidate in India in 2014'
-        - '<u>Silver Medal:</u> SOF International Mathematics Olympiad 2013'
+        - '<u>Awarded:</u> <b>Gold Medal</b> in School(Class of 300)'
+        - '<u>Awarded:</u> <b>Certificate of Merit</b> for Instrumental Music (The Sitar), by CBSE. Awarded to only 27 Candidate in India in 2014.'
+        - '<b>Silver Medal</b> in SOF International Mathematics Olympiad 2013.'
 
 - title: Work Experience
   type: table
@@ -93,43 +93,40 @@
       year: 2016
       description:
         - Developed a remotely controllable Smart Irrigation System by linking Beaglebone Black Micro-controller with Whatsapp. Built sensors for soil temperature, and moisture sensing, facilitating the irrigation decisions.
-- title: Honors and Awards
+- title: Notable Positions and Awards
   type: table
   contents:
     - year: 2017
       items:
-        - Shastri Research Student Fellowship.
+        - <b>Shastri Research Student Fellowship</b>, Awarded by Shastri Indo-Canadian Institute, Ministry of Human Resource and Develpoment, Govt. of India.
+        - Selected among India's 12 most promising undergraduates for India's research exchange program with Canada.
+    - year: 2017-18
+      items:
+        - <b>Captain, DTU Boys Badminton</b>.
+        - <b>Silver Medal</b> at Aahvaan 2018, national level intercollegiate sports meet.
+        - <b>Gold Medal</b> at Arena 2017 and 2016, an inter-departmental sports fest at DTU.
+        - <b>Silver Medal</b> at Udhgosh 2016, IIT Kanpur, national level intercollegiate sports meet.
     - year: 2016
       items:
-        - <b>CMU Presidential Fellowship</b>.
-    - year: 2010-13
+        - Successfully completed a one week <b>GIAN(Global Initiative of Academic Networks)</b> workshop in <b>Circuits, Microsystems and Packaging Techniques Intended for Autonomous Brain-Machine Interfaces</b>
+    - year: 2014
       items:
-        - 2<sup>nd</sup> place in the CMU NeuroHackathon.
-        - <b>Sir Bruce White prize</b> in engineering for the best M.Eng. thesis at Imperial College London.
-        - <b>Dean's List</b> at Imperial College London, for exceptional academic performance (all four years).
-    - year: 2010
+        - <b>Excellence Award</b>
+        - <b>Honoured by Smt. Smriti Zubin Irani</b>, Minister of Human Resource and Develpoment, Govt. of India for being in top <b>0.001%</b> students in the country.
+    - year: 2014
       items:
-        - Nominated for the RAE (UK Royal Academy of Engineering) presentation skills award.
-        - '"Roll of Honor" of the Electrical and Electronic Engineering department of Imperial College London, for the best software design project in the year.'
-    - year: 2009
+        - <b>Certificate of Merit</b> by Central Board of Secondary Education in India, for <b>Instrumental Music(The Sitar).</b>
+        - Awarded to only <b>27</b> candidates in India, for exhibiting superior knowledge in Instrumental Music.
+    - year: 2014
       items:
-        - Congratulatory diploma for my work on "Project Protasis – Home Automation" by <b>UNESCO</b>.
-        - <b>Honorary plaque</b> by the <b>Greek Minister of Education and Religious Affairs</b> for honoring my country internationally.
-    - year: 2007-08
+        - <b>INSPIRE Scholarship for Higher Education</b> for scoring in the top 0.001% in AISSCE.
+    - year: 2013
       items:
-        - <b>Full scholarship</b> (of about €12,000) by "Geitonas School", for honoring my school internationally.
-        - Had a <b>computer science laboratory named after me</b> in “Geitonas School”, for honoring my school internationally.
-        - Awarded €1,000 by the <b>President of the Greek Parliament</b>, for honoring my country internationally.
-        - <b>Honorary plaque</b> by the Mayor of my city, Vari, in Greece, for honoring my country internationally.
-        - Represented Greece in the <b>Microsoft Imagine Cup 2008 Worldwide Finals</b>, in Paris, France, with "Project Protasis - Home Automation".
-        - 1<sup>st</sup> place in the Microsoft Imagine Cup 2008 Greek Finals with "Project Protasis - Home Automation", competing against teams from universities, at age of only 16 and having worked without a team or a mentor (also won the 2<sup>nd</sup> place in the Microsoft Imagine Cup 2009 Greek Finals with "Project Protasis - Forest Protection").
-    - year: 2007
+        - <b>Silver Medal</b> at SOF International Mathematics Olympiad.
+    - year: 2012
       items:
-        - <b>Certificate of Excellence</b> for the school year 2006-07 from the Greek Ministry of Education and Religious Affairs.
-        - 3<sup>rd</sup> place (bronze medal) in the <b>Greek Mathematics Olympiad</b>, organized by the Hellenic Mathematical Society.
-    - year: 2003-07
-      items:
-        - <b>11 scholarships</b> and competitions in the fields of mathematics, sciences and computer science.
+        - <b>Merit Scholarship</b> by CBSE, for scoring 10CGPA in AISSE.
+
 
 - title: Teaching Assistant
   type: table
@@ -142,5 +139,5 @@
 - title: Other Interests
   type: list
   contents:
-    - '<u>Sports:</u> Badminton, Football, Chess'
-    - '<u>Hobbies:</u> Guitar, Poetry, Travelling, Philosophy.'
+    - '<b>Sports:</b> Badminton, Chess, and Football.'
+    - '<b>Hobbies:</b> Guitar, Poetry, Travelling, and Philosophy.'
