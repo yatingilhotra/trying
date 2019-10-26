@@ -77,7 +77,7 @@
     - title: 'Research Intern at Polystim Neurotechnologies Lab, Polytechnique Montreal'
       year: 2017
       description:
-        - <u>Mentor:</u> <a href="http://www.mohamadsawan.org/" target="_blank"><b>Prof. Mohammad Sawan</b></a>
+        - <u>Mentor:</u> <a href="http://www.mohamadsawan.org/" target="_blank"><b>Prof. Mohamad Sawan</b></a>
         - <u>Project:</u> An adaptive thresholding Smoothed-Teager Energy Operator(STEO) action-potential detector based on Qn estimator of scale(a robust statistics method).
         - Improved the spike detection algorithm from taking \(O(N^2)\) time and \(O(N^2)\) space to warranting \(O(NlogN)\) time and \(O(N)\) space.
         - Ran rigorous simulations on golden-truth data generated from the real extra-cellular neural recordings from the hippocampus of a monkey.
