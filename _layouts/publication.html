@@ -69,14 +69,17 @@
           {% elsif entry.type == "eprint" %}
             In {{entry.booktitle}} ({{entry.eprint}})
           {% endif %}
+
+          {%comment%}
           {% if entry.year %}
             {{entry.year}}.
           {% else %}
             .
           {% endif %}
+          {%endcomment%}
         </p>
       </div>
-    
+
       <div class="col p-0">
         {% if entry.abstract %}
           <a class="badge grey waves-effect font-weight-light mr-1" data-toggle="collapse" href="#{{entry_id}}-abstract" role="button" aria-expanded="false" aria-controls="{{entry_id}}-abstract">Abstract</a>
@@ -106,7 +109,7 @@
           <a class="badge grey waves-effect font-weight-light mr-1" href="http://arxiv.org/abs/{{ entry.arxiv }}" target="_blank">arXiv</a>
         {% endif %}
       </div>
-    
+
       {% if entry.abstract %}
       <div class="col mt-2 p-0">
         <div id="{{entry_id}}-abstract" class="collapse">
