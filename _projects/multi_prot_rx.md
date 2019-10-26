@@ -2,7 +2,7 @@
 layout: project
 title: Multi-Protocol Receiver
 nav: projects
-importance: 110
+importance: 100
 description: a 10Gbps-1.6Gbps receiver supporting various ethernet, usb, and display port communication protocols
 img: /assets/img/multi_prot_rx.svg
 ---

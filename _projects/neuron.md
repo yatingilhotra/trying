@@ -2,10 +2,14 @@
 layout: project
 title: Current Mode AdEx Neuron
 nav: projects
-importance: 75
+importance: 120
 description: ultra low power neuron implementation for large scale neuromorphic cores
 img: /assets/img/neuron.png
 ---
+
+
+
+{%comment%}
 
 This library is a Scala API for [https://www.tensorflow.org](https://www.tensorflow.org). It attempts to provide most of
 the functionality provided by the official Python API, while at the same type being strongly-typed and adding some new
@@ -142,3 +146,5 @@ Funding for the development of this library has been generously provided by the 
   </tr>
 </table>
 </div>
+
+{%endcomment%}

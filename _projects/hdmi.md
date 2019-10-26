@@ -2,8 +2,8 @@
 layout: project
 title: HDMI2.1 TX Loopback
 nav: projects
-importance: 50
-description: estimating accuracies of classifiers using only unlabeled data
+importance: 80
+description: HDMI2.1 TX In-Built Production Test
 img: /assets/img/loopback.svg
 ---
 <div class="container-fluid p-0">

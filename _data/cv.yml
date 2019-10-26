@@ -13,9 +13,8 @@
 - title: Research Interests
   type: list
   contents:
-    - High Frequency wireline systems, and wireless communication systems. Emerging applications of RF Integrated Circuits.
-    - Brain Inspired Computing, Low Power Analog Signal Processing for Neuromorphic Cores.
-    - Neural Decoding, Understanding Neural Circuits, neural activity detectors, and high channel neuro-recording/stimulation systems.
+    - High frequency wireline, and wireless communication systems. Emerging applications of RF Integrated Circuits.
+    - Neural Decoding, Brain Inspired Computing, Low Power Analog Signal Processing for Neuromorphic Cores, and Biomedical Applications.
 - title: Education
   type: table
   contents:
