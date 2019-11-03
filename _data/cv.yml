@@ -13,39 +13,8 @@
 - title: Research Interests
   type: list
   contents:
-    - High frequency wireline, and wireless communication systems. Emerging applications of RF Integrated Circuits.
+    - Energy efficient high frequency wireline, and wireless communication systems.
     - Neural Decoding, Brain Inspired Computing, Low Power Analog Signal Processing for Neuromorphic Cores, and Biomedical Applications.
-- title: Education
-  type: table
-  contents:
-    - title: Delhi Technological University(formerly Delhi College of Engineering)
-      year: 2014-2018
-      description:
-        - '<u>Percentage</u> <b>81.54%</b>'
-        - '<u>Awarded</u>: First Class with Distinction (for Academic Excellence)'
-        - '<u>Advisor:</u> <a href="http://dtu.irins.org/profile/66992" target="_blank"><b>Prof. Rajeshwari Pandey</b></a>, <u>Co-Advisor:</u> <a href="http://dtu.irins.org/profile/66991" target="_blank"><b>Prof. Neeta Pandey</b></a>.'
-        - title: 'Ultra-Low Power, Ultra Low Transconductance <i>Gm-C</i> OTA for Sub-Hertz applications using Dynamic Thresholding, and Subthreshold Operation'
-          contents:
-            - Studied the analog properties of a DTMOS transistor in sub-threshold region, and implemented the findings for low power analog design.
-            - Designed 0.3Hz filters for biomedical applications, achieving nominally <b>25%</b> power reduction against regular CMOS designs, with lower input pair mismatch and flicker noise power, with minimal trade-off in the dynamic range.
-        - 'OTRA Based Piece-Wise Linear VTC Generators and their application in High-Frequency Sinusoid Generation.'
-        - 'New topologies for OTRA based programmable precision half-wave and full-wave rectifiers.'
-        - title: 'Research Assistant, <a href="http://dsad.in/" target="_blank"><b>Digital System Architecture and Design (DSAD) Group</b></a>.'
-          contents:
-            - <u>Advisor:</u> <a href="http://dtu.irins.org/profile/66991" target="_blank"><b> Prof. Neeta Pandey</b></a>.
-            - An FPGA Based Floating Point Gauss-Seidel Iterative Solver.
-
-
-    - title: All India Senior School Certificate Examination(AISSCE), CBSE
-      year: 2014
-      description:
-        - '<u>Aggregate:</u> 96.6%'
-        - '<u>All India Rank:</u> 955 (Top 0.001% in the Country)'
-        - 'Majored in Physics, Mathematics, Chemistry, English, and Instrumental Music'
-        - '<u>Awarded:</u> <b>INSPIRE Scholarship for Higher Education</b>.'
-        - '<u>Awarded:</u> <b>Gold Medal</b> in School(Class of 300)'
-        - '<u>Awarded:</u> <b>Certificate of Merit</b> for Instrumental Music (The Sitar), by CBSE. Awarded to only 27 Candidate in India in 2014.'
-        - '<b>Silver Medal</b> in SOF International Mathematics Olympiad 2013.'
 
 - title: Work Experience
   type: table
@@ -74,6 +43,42 @@
           contents:
             - Responsibilities include participating, and critiquing in periodic design reviews. Reporting, and working closely with CAD teams in solving Custom Compiler, HSPICE, and FineSim(Design Tools) bugs. Conducting regular update meetings and design reviews with customers.
 
+- title: Education
+  type: table
+  contents:
+    - title: Delhi Technological University(formerly Delhi College of Engineering)
+      year: 2014-2018
+      description:
+        - '<u>Percentage</u> <b>81.54%</b>'
+        - '<u>Awarded</u>: <b>First Class with Distinction</b> in <i>Electronics and Communication Engineering</i>'
+        - '<u>Advisor:</u> <a href="http://dtu.irins.org/profile/66992" target="_blank"><b>Prof. Rajeshwari Pandey</b></a>, <u>Co-Advisor:</u> <a href="http://dtu.irins.org/profile/66991" target="_blank"><b>Prof. Neeta Pandey</b></a>.'
+        - title: 'Ultra-Low Power, Ultra Low Transconductance <i>Gm-C</i> OTA for Sub-Hertz applications using Dynamic Thresholding, and Subthreshold Operation.'
+          contents:
+            - Studied the analog properties of a DTMOS transistor in sub-threshold region, and implemented the findings for low power analog design.
+            - Designed 0.3Hz filters for biomedical applications achieving nominally <b>25%</b> power reduction against regular CMOS design, with lower input pair mismatch and flicker noise power.
+        - title: 'OTRA based Voltage-Transfer Curve Generation for High Frequency applications'
+          contents:
+            - Studied the benefits of current mode analog signal processing, and developed OTRA based high frequency signal generators and rectifiers.
+        - title: 'Research Assistant, <a href="http://dsad.in/" target="_blank"><b>Digital System Architecture and Design (DSAD) Group</b></a>.'
+          contents:
+            - <u>Advisor:</u> <a href="http://dtu.irins.org/profile/66991" target="_blank"><b> Prof. Neeta Pandey</b></a>.
+        - title: 'An FPGA Based Floating Point Gauss-Seidel Iterative Solver.'
+          contents:
+            - Studied various mathematical iterative solvers, and implemented a new, area and speed efficient amalgamation of Jacobi and Gauss Seidel iterative solvers on FPGA Virtex 7.
+
+
+    - title: All India Senior School Certificate Examination(AISSCE), CBSE
+      year: 2014
+      description:
+        - '<u>Aggregate:</u> 96.6%'
+        - '<u>All India Rank:</u> 955 (Top 0.001% in the Country)'
+        - 'Majored in Physics, Mathematics, Chemistry, English, and Instrumental Music'
+        - '<u>Awarded:</u> <b>INSPIRE Scholarship for Higher Education</b>.'
+        - '<u>Awarded:</u> <b>Gold Medal</b> for Academic Excellence(Class of 300)'
+        - '<u>Awarded:</u> <b>Certificate of Merit</b> for Instrumental Music (The Sitar), by CBSE. Awarded to only 27 Candidate in India in 2014.'
+        - '<b>Silver Medal</b> in SOF International Mathematics Olympiad 2013.'
+
+
     - title: 'Research Intern at Polystim Neurotechnologies Lab, Polytechnique Montreal'
       year: 2017
       description:
@@ -81,7 +86,7 @@
         - <u>Project:</u> An adaptive thresholding Smoothed-Teager Energy Operator(STEO) action-potential detector based on Qn estimator of scale(a robust statistics method).
         - Improved the spike detection algorithm from taking \(O(N^2)\) time and \(O(N^2)\) space to warranting \(O(NlogN)\) time and \(O(N)\) space.
         - Ran rigorous simulations on golden-truth data generated from the real extra-cellular neural recordings from the hippocampus of a monkey.
-        - Qn-STEO algorithm outperforms many state-of-the-art spike detection algorithms, in all binary hypothesis metrics including Accuracy, Sensitivity, and Specificity.
+        - Qn-STEO algorithm outperforms many state-of-the-art spike detection algorithms, in binary hypothesis metrics including Accuracy, Sensitivity, and Specificity.
     - title: 'Junior Research Fellow, VLSI Tools and Technologies(VDTT) Lab, Indian Institute of Technology(IIT)-Delhi'
       year: 2017
       description:
