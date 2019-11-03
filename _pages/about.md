@@ -15,14 +15,14 @@ nav: about
     Analog and Mixed Signal Design Engineer
   </h5>
   <h5 class="text-center text-sm-center" style="font-stretch: ultra-condensed;">
-    <a style="color: rgb(60, 72, 88);" href="https://www.synopsys.com/designware-ip/interface-ip.html" target="_blank">DesignWare Interface IP Group, Synopsys Inc.</a><br/>
+    <a style="color: rgb(60, 72, 88);" href="https://www.synopsys.com/designware-ip/interface-ip.html" target="_blank">Synopsys Inc.</a><br/>
   </h5>
 </div>
 
 <!-- Introduction -->
 
 <div class="col text-justify p-0">
-  I currently work on the next generation high speed SerDes technology at Synopsys Inc. I have been a Research Assistant at <span class="font-weight-bold">Polystim Neurotechnologies Lab. Polytechnique Montreal</span> in the field of Brain Machine Interfaces, and at <span class="font-weight-bold">VDTT Lab, IIT Delhi</span> in Low Power Analog Design. I received my Bachelor in Electronics and Communication Engineering degree from <span class="font-weight-bold">Delhi Technological University (formerly Delhi College of Engineering)</span> in 2018. I was a recepient of <span class="font-weight-bold">Shastri Research Student Fellowship</span> awarded by Shastri Indo-Canadian Institute, MHRD, Govt. of India, in 2017.
+  I currently work on the next generation high speed SerDes technology at Synopsys Inc. I have been a Research Assistant at <span class="font-weight-bold">Polystim Neurotechnologies Lab, Polytechnique Montreal</span> in the field of Brain Machine Interfaces, and at <span class="font-weight-bold">VDTT Lab, IIT Delhi</span> in Low Power Analog Design. I received my Bachelor in Electronics and Communication Engineering degree from <span class="font-weight-bold">Delhi Technological University (formerly Delhi College of Engineering)</span> in 2018. I was a recepient of <span class="font-weight-bold">Shastri Research Student Fellowship</span> awarded by Shastri Indo-Canadian Institute, MHRD, Govt. of India, in 2017.
   <p>
   <p>My research interests lie in tackling the challenges of bandwidth and power in next generation high speed wireline and wireless transceivers. I am also interested in investigating techniques and methods to achieve ultra-energy-efficient brain inspired computing systems, implantable devices, and neuro-recording-stimulation systems.
 

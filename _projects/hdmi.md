@@ -3,7 +3,7 @@ layout: project
 title: HDMI2.1 TX Loopback
 nav: projects
 importance: 80
-description: HDMI2.1 TX In-Built Production Test
+description: 3Gbps-12Gbps programmable loopback test for HDMI2.1 TX production testing
 img: /assets/img/loopback.svg
 ---
 <div class="container-fluid p-0">

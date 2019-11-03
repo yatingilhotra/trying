@@ -42,6 +42,24 @@
         - title: '<b>General Responsibilities</b>'
           contents:
             - Responsibilities include participating, and critiquing in periodic design reviews. Reporting, and working closely with CAD teams in solving Custom Compiler, HSPICE, and FineSim(Design Tools) bugs. Conducting regular update meetings and design reviews with customers.
+    - title: 'Research Intern at Polystim Neurotechnologies Lab, Polytechnique Montreal'
+      year: 2017
+      description:
+      - <u>Mentor:</u> <a href="http://www.mohamadsawan.org/" target="_blank"><b>Prof. Mohamad Sawan</b></a>
+      - <u>Project:</u> An adaptive thresholding Smoothed-Teager Energy Operator(STEO) action-potential detector based on Qn estimator of scale(a robust statistics method).
+      - Improved the spike detection algorithm from taking \(O(N^2)\) time and \(O(N^2)\) space to warranting \(O(NlogN)\) time and \(O(N)\) space.
+      - Ran rigorous simulations on golden-truth data generated from the real extra-cellular neural recordings from the hippocampus of a monkey.
+      - Qn-STEO algorithm outperforms many state-of-the-art spike detection algorithms, in binary hypothesis metrics including Accuracy, Sensitivity, and Specificity.
+    - title: 'Research Intern, VLSI Tools and Technologies(VDTT) Lab, Indian Institute of Technology(IIT)-Delhi'
+      year: 2016
+      description:
+      - <u>Mentor:</u> <a href="http://web.iitd.ac.in/~shouri/" target="_blank"><b>Assoc. Prof. Shouribrata Chatterjee</b></a>
+      - Designed a sub-picowatt 2T bandgap-reference, and a high precision Brokaw's Bandgap Reference in SCL's 180nm technology.
+      - Designed a 1V, 600MHz UGB, 60dB, two stage, miller compensated op-amp in UMC 65nm technology.
+    - title: 'Intern, Texas Instruments University Program, Centre for Electronic Design and Technology'
+      year: 2016
+      description:
+      - Developed a remotely controllable Smart Irrigation System by linking Beaglebone Black Micro-controller with Whatsapp. Built sensors for soil temperature, and moisture sensing, facilitating the irrigation decisions.
 
 - title: Education
   type: table
@@ -64,9 +82,11 @@
             - <u>Advisor:</u> <a href="http://dtu.irins.org/profile/66991" target="_blank"><b> Prof. Neeta Pandey</b></a>.
         - title: 'An FPGA Based Floating Point Gauss-Seidel Iterative Solver.'
           contents:
-            - Studied various mathematical iterative solvers, and implemented a new, area and speed efficient amalgamation of Jacobi and Gauss Seidel iterative solvers on FPGA Virtex 7.
+            - Studied various mathematical iterative solvers, and implemented a new, area and speed efficient amalgamation of Jacobi and Gauss Seidel iterative solver on FPGA Virtex 7.
 
-
+# <a href="http://dtu.irins.org/profile/66992" target="_blank"><b>Prof. Rajeshwari Pandey</b></a>
+# <a href="http://dtu.irins.org/profile/66991" target="_blank"><b> Prof. Neeta Pandey</b></a>
+#
     - title: All India Senior School Certificate Examination(AISSCE), CBSE
       year: 2014
       description:
@@ -79,24 +99,7 @@
         - '<b>Silver Medal</b> in SOF International Mathematics Olympiad 2013.'
 
 
-    - title: 'Research Intern at Polystim Neurotechnologies Lab, Polytechnique Montreal'
-      year: 2017
-      description:
-        - <u>Mentor:</u> <a href="http://www.mohamadsawan.org/" target="_blank"><b>Prof. Mohamad Sawan</b></a>
-        - <u>Project:</u> An adaptive thresholding Smoothed-Teager Energy Operator(STEO) action-potential detector based on Qn estimator of scale(a robust statistics method).
-        - Improved the spike detection algorithm from taking \(O(N^2)\) time and \(O(N^2)\) space to warranting \(O(NlogN)\) time and \(O(N)\) space.
-        - Ran rigorous simulations on golden-truth data generated from the real extra-cellular neural recordings from the hippocampus of a monkey.
-        - Qn-STEO algorithm outperforms many state-of-the-art spike detection algorithms, in binary hypothesis metrics including Accuracy, Sensitivity, and Specificity.
-    - title: 'Junior Research Fellow, VLSI Tools and Technologies(VDTT) Lab, Indian Institute of Technology(IIT)-Delhi'
-      year: 2017
-      description:
-        - <u>Mentor:</u> <a href="http://web.iitd.ac.in/~shouri/" target="_blank"><b>Assoc. Prof. Shouribrata Chatterjee</b></a>
-        - Designed a sub-picowatt 2T bandgap-reference, and a high precision Brokaw's Bandgap Reference in SCL's 180nm technology.
-        - Designed a 1V, 600MHz UGB, 60dB, two stage, miller compensated op-amp in UMC 65nm technology.
-    - title: 'Intern, Texas Instruments University Program, Centre for Electronic Design and Technology'
-      year: 2016
-      description:
-        - Developed a remotely controllable Smart Irrigation System by linking Beaglebone Black Micro-controller with Whatsapp. Built sensors for soil temperature, and moisture sensing, facilitating the irrigation decisions.
+
 - title: Notable Positions and Awards
   type: table
   contents:
