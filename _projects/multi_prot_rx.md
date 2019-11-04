@@ -11,12 +11,11 @@ img: /assets/img/multi_prot_rx.svg
   <h6 class="font-italic text-center" style="color: #78909c;"><u>Figure 1:</u> Overview of the receiver. My design contribution includes (a) Summmer, (b) Offset Correction Loop, (c) Samplers, (d) Data Paths(TSPC Flops), (e) Clock Tree, (f) Deserializer</h6>
 </div>
 
-High Speed Serial Interfaces(HSSI) are the backbone of modern communication systems. They take data from multiple slower lanes, and convert them into single high speed serial lane, in order to send the data through long channels. As the speed of these communication links increases, they suffer more attenuation while passing through a channel, which may be a PCB, a coaxial cable, an optical fiber, or an inductively coupled link. Other than attenuation, the signals also undergo non-linear transformations, and they disperse when they pass through a channel. The channel's non-linear response exists because of impedance mismatches due to discontinuities in the channel. Any channel can be characterized by it's impulse response, an example of which can be seen in Figure 2. For high loss channels, the signal at the end of the channel can become unreadable, which is why, it is of paramount importance to properly equalize the channel response. There are two primary techniques to equalize the channel response, one is CTLE(Continuous Time Linear Equalizer), and the other one is DFE(Decision Feedback Equalizer).   
+<b>High Speed Serial Interfaces (HSSI)</b> are the backbone of modern communication systems. They take data from multiple slower lanes, and convert them into single high speed serial lane in order to send the data through long channels. As the speed of these communication links increases, the signal suffers more attenuation while passing through a channel which may be a PCB, a coaxial cable, an optical fiber, or an inductively coupled link. The channel virtually follows a Low Pass Response, with occasional deviations because of impedance mismatches in the channel. For high frequncy signals, the channel loss is usually so high that the signal at the end of the channel becomes unreadable. It becomes of paramount importance to properly equalize the channel's response in order to have good detection. There are two primary techniques to equalize the channel response, one is <b>CTLE (Continuous Time Linear Equalizer)</b>, and the other one is <b>DFE (Decision Feedback Equalizer).</b>  
 
-CTLE, as the name suggests, is a linear equalization scheme, and generates a linear inverse response of the channel. It does a pretty good job of amplifying the signal, but the drawback is that it amplifies noise as well. Moreover, it cannot equalize the non-linear transformations the signal goes through while passing through a channel. Decision Feedback Equalizer is a non-linear equalization scheme, which compensates for the dispersion that happens in the channel, and it also removes all the noise that exists in the signal by sampling it. More often than not, both CTLE and DFE are required to optimally equalize the channel's response.
+CTLE, as the name suggests, is a linear equalization scheme, and generates a high pass response nullifying the low pass response of the channel. It does a pretty good job of amplifying the signal, but the drawback is that it amplifies noise as well. Moreover, since the channel is not exactly Low Pass, a High Pass equalization is not enough to account for the deviations in the frequency response of the channel. Decision Feedback Equalizer is a non-linear equalization scheme which compensates for the dispersion that occurs in the channel. It also removes the noise in the analog signal by sampling it. More often than not, both CTLE and DFE are required to optimally equalize the channel's response.
 
-
-In this particular receiver implementation shown in Figure 1, both CTLE and DFE are employed to compensate for the signal losses, the equalized data is sampled using a low-noise, low offset comparator, which is itself a part of the DFE loop. After sampling, the data is deserialized into multiple lanes, and handed-off to digital for running multiple calibrating sequences, and parameter trainings, in order to achieve low BER(Bit Error Rate).  
+In this particular receiver implementation shown in Figure 1, both CTLE and DFE are employed to compensate for the signal losses. The equalized data is sampled using a low-noise, offset calibrated comparator, which is itself a part of the DFE loop. After sampling, the data is deserialized into multiple lanes, and handed-off to digital for running multiple calibrating sequences and parameter trainings in order to achieve low BER(Bit Error Rate).  
 
 
 <h3 class="title mt-4 p-0 text-left">DFE Architecture</h3>
@@ -26,75 +25,91 @@ In this particular receiver implementation shown in Figure 1, both CTLE and DFE 
   <h6 class="font-italic text-center mt-2" style="color: #78909c;"><u>Figure 2:</u> A Typical Channel Response</h6>
 </div>
 
+Any channel can be characterized by its impulse response, an example of which can be seen in Figure 2. The difference between each dot on the x-axis represents the Data Unit Interval(UI). The impulse response shows how a particular input bit's power, after the channel, interferes with other bits. This is dispersion, and is because of the bandwidth limitation of the channel. The actuall bit is recognized by the highest point (main-sample point) in the impulse response, while the other tail values (Post-Cursors) are the unwanted interference of this bit with the next data bits. This phenomenon of one bit's power bleeding into the next bits is known as <b>ISI(Inter-Symbol Interference)</b>. ISI can be minimized by reconstructing the post-cursor values, and adding/subtracting them appropriately from the original data that is sampled.
 
-Typically, the impulse response of a channel looks like as shown in Figure 2. The difference between each dot on the x-axis represents the Data Unit Interval(UI). The impulse response shows how a particular input bit's power, after the channel, interferes with other bits. The actuall bit is recognized by the main-sample point in the impulse response, while the other tail values are just unwanted dispersions caused by the channel, which are called post-cursors. This phenomenon of one bit's power bleeding into the next UIs is known as ISI(Inter-Symbol Interference). ISI can be minimized by reconstructing the post-cursor values, and subtracting them appropriately from the original data that is sampled. For example, we can equalize the first post cursor by sampling the data, scaling it by a factor of \\(h_1\\), and then subtracting it from the next bit. Actually this can be done in two ways, popularly known as Rolled and Unrolled DFE implementations, as shown in Figure 3. Unrolled DFE implementation gives an advantage of delay of one operation, and hence makes it easier to meet the 1UI feedback timing requirement.
+
+{%comment%}
+
+For example, we can equalize the first post cursor by sampling the data, scaling it by a factor of \\(h_1\\), and then subtracting it from the next bit. Actually this can be done in two ways, popularly known as Rolled and Unrolled DFE implementations, as shown in Figure 3. Unrolled DFE implementation gives an advantage of delay of one operation, and hence makes it easier to meet the 1UI feedback timing requirement.
 
 <div class="container-fluid text-center mt-4 p-0">
   <img class="img-responsive col-12 col-sm-10 col-md-6 ml-auto mr-auto" src="{{ '/assets/img/dfe_type.svg' | prepend: site.baseurl | prepend: site.url }}" alt="overview figure">
   <h6 class="font-italic text-center mt-2" style="color: #78909c;"><u>Figure 3:</u> Types of DFE Implementstions: (a) Rolled DFE  (b) Unrolled(Speculative) DFE</h6>
 </div>
 
+An extremely important aspect of the comparator design is its sensitivity, which is defined as the input amplitude for which the comparator gives sufficiently low delay.  
 
-A 1-Tap Speculative, 5-Tap DFE architecture is implemented to effectively cancel the 5 post-cursor taps of the channel impulse response, as shown in Figure 4. First tap is implemented in an unrolled manner. The reference branch of the 1-bit comparator, which is used for offset calibration is also used for implementing the H1-Tap. All other tap information is fed back by just resampling, delaying, and scaling the comparator output. The DFE follows the following equation:
+
+It uses the concept of regeneration to achieve large output swings in a very short amount of time.
+It is important because the comparator is used in 1UI or 1.5UI paths(UI: Unit Interval, which is 100ps for a receiver supporting 10Gbps of data speeds) depending on the type of DFE implemented, and the delay of the strong-arm comparator increases as the input amplitude decreases. Moreover, the input amplitudes for high loss channels can come out to be very small values(of the order of a few tens of mVs) even after boosting and equalizing it. That's why the sensitivity parameter is so critical. Along with the delay of the comparator, the input-referred noise and the offset of the comparator also directly add up to the sensitivity number. Hence, it is important to ensure a low noise and offset numbers for the comparator.    
+
+By using fully thermometrically controlled DAC, following Pelgrom's Law, and appropriate layout strategies, less than 1LSB (Least Significant Bit) INL and DNL was achieved. The LSB was kept significantly small to precisely cancel the comparator offset.    
+
+It is also defined by it's input-referred noise and it's offset. For systems where you can't afford big sensitivity numbers, it becomes essential to correct the offset of the comparator. That is done by calibrating the reference branch of the comparator(Figure 6) using a DAC.
+
+{%endcomment%}
+
+A 1-Tap Speculative, 5-Tap DFE architecture is implemented to effectively cancel the 5 post-cursor taps of the channel impulse response, as shown in Figure 3. First tap is implemented in an unrolled manner, using the reference branch of the slicer. All other tap information is fed back by just resampling, delaying, and scaling the comparator output. The DFE follows the following equation:
 
 $$ v_{dfe} = v_{in} \pm h_1 \pm h_2 \pm h_3 \pm h_4 \pm h_5 $$
 
-where \\(v_{dfe}\\) is the DFE equalized signal which comes at the input of comparator, \\(v_{in}\\) is the input to the DFE system, and \\(h1\\),\\(h2\\), \\(h3\\), \\(h4\\), \\(h5\\) are the tap magnitudes which are added or subtracted from \\(v_{in}\\) based on the previous bit signs(either 0 or 1).
+where \\(v_{dfe}\\) is the DFE equalized signal which comes at the input of sllicer, \\(v_{in}\\) is the input to the DFE system, and \\(h1\\),\\(h2\\), \\(h3\\), \\(h4\\), \\(h5\\) are the tap magnitudes which are added or subtracted from \\(v_{in}\\) based on the previous bit signs(either 0 or 1).
 
 
 <div class="container-fluid p-0">
   <img class="img-responsive col-12" src="{{ '/assets/img/dfe_arch.svg' | prepend: site.baseurl | prepend: site.url }}" alt="overview figure">
-  <h6 class="font-italic text-center" style="color: #78909c;"><u>Figure 4:</u> A 1-Tap Speculative, 5 Tap Decision Feedback Equalizer</h6>
+  <h6 class="font-italic text-center" style="color: #78909c;"><u>Figure 3:</u> A 1-Tap Speculative, 5 Tap Decision Feedback Equalizer</h6>
 </div>
 
 <h3 class="title mt-4 p-0 text-left">Summer</h3>
 
-Summer is just an amplifier, which adds, or subtracts the tap values based on the previous bit information. The concept of addition and subtraction of values is applicable only when the system is linear, hence, the linearity of the summer, and all the signal processing blocks before samplers is an important aspect of their design. As shown in Figure 5, the input to the summer amplifier stage connects to one branch. The feedback signal \\(S\\) from the samplers comes to another branch, which linearly adds or subtracts the current of magnitude \\(H_2\\) based on the signal \\(T\\). The linear summation of the currents generated by the input signal \\(v_{in}\\), and the feedback signal \\(S\\) generates the output signal \\(v_{dfe}\\), which is ultimately sampled by the comparator.
+Summer is just an amplifier, which adds, or subtracts the tap values based on the previous bit information. The concept of equalization by addition/subtraction is applicable when the system is linear, hence, the linearity of the summer is an important design aspect. As shown in Figure 4, the input to the summer amplifier stage connects to one branch. The feedback signals \\(S\\) from the samplers comes to other branches, depending on whose values a current of certain magnitude linearly adds or subtracts from the input signal. The resultant output \\(v_{dfe}\\) is the equalized signal which ultimately gets sampled by the slicer.
 
 <div class="container-fluid text-center mt-4 p-0">
   <img class="img-responsive col-12 col-sm-10 col-md-6 ml-auto mr-auto" src="{{ '/assets/img/summer.svg' | prepend: site.baseurl | prepend: site.url }}" alt="overview figure">
-  <h6 class="font-italic text-center mt-2" style="color: #78909c;"><u>Figure 5:</u> Summer</h6>
+  <h6 class="font-italic text-center mt-2" style="color: #78909c;"><u>Figure 4:</u> Summer</h6>
 </div>
 
 
 <h3 class="title mt-4 p-0 text-left">Samplers</h3>
-The Comparator is a very critical part of the receiver system. It is the stage which converts a very low amplitude analog signal into streams of perfect 1s and 0s. The sampling procedure inherently removes the high frequency noise, jitter, and distortions present in the data. Strong-Arm Latch based comparator is a polular high speed, dynamic comparator as shown in Figure 6. It uses the concept of regeneration to achieve large swings in a very short amount of time. An extremely important aspect of the comparator design is sensitivity, which is defined as the input amplitude for which the comparator gives sufficiently low delay. It is important because the comparator is used in 1UI or 1.5UI paths(UI: Unit Interval, which is 100ps for a receiver supporting 10Gbps of data speeds) depending on the type of DFE implemented, and the delay of the strong-arm comparator increases as the input amplitude decreases. Moreover, the input amplitudes for high loss channels can come out to be very small values(of the order of a few tens of mVs) even after boosting and equalizing it. That's why the sensitivity parameter is so critical. Along with the delay of the comparator, the input-referred noise and the offset of the comparator also directly add up to the sensitivity number. Hence, it is important to ensure a low noise and offset numbers for the comparator.    
+The Slicer is a critical part of the receiver system. It is the stage which converts a very low amplitude analog signal into streams of perfect 1s and 0s. The sampling procedure inherently cleans up noise, jitter, and waveform distortions present in the data. The popular Strong-Arm Latch based dynamic comparator is used as shown in Figure 5.  The output of the comparator is the most critical signal of the system, as all other on-chip procedures depend on the correctness of this data. Since the input to the comparator can have extremely low amplitudes, the non-idealities of the comparator make it highly susceptible to passing erroneous data. Hence, it is extremely important to keep the non-idealities such as input-referred noise, offset, and kickback in check.
+
 
 
 <div class="container-fluid text-center mt-4 p-0">
   <img class="img-responsive col-12 col-sm-10 col-md-6 ml-auto mr-auto" src="{{ '/assets/img/comparator.svg' | prepend: site.baseurl | prepend: site.url }}" alt="overview figure">
-  <h6 class="font-italic text-center mt-2" style="color: #78909c;"><u>Figure 6:</u> 1 bit Comparator (Sampler)</h6>
+  <h6 class="font-italic text-center mt-2" style="color: #78909c;"><u>Figure 5:</u> 1 bit Comparator (Sampler)</h6>
 </div>
 
 
 <h3 class="title mt-4 p-0 text-left">Current Steering DAC</h3>
-The sensitivity of the comparator is defined by it's delay, which is a function of input amplitude. It is also defined by it's input-referred noise and it's offset. For systems where you can't afford big sensitivity numbers, it becomes essential to correct the offset of the comparator. That is done by calibrating the reference branch of the comparator(Figure 6) using a DAC. During a calibrating sequence, a slow ramp is given to the reference branch to see the code for which the output of the comparator flips, and that code is then set at the reference branch for mission mode of the chip. A-Current Steering DAC is used for this offset cancellation. Current Steering DAC is used as it inherently comes with many benefits including fast and glitch-free transient response, low ground bounce, and it naturally provides differential outputs for the comparator. The DAC is fully controlled using Thermometric logic, which ensures low Differential and Integral Non-Linearities(DNL-INL). By using fully thermometrically controlled DAC, following Pelgrom's Law, and appropriate layout strategies, less than 1LSB(Least Significant Bit) INL and DNL was achieved. The LSB was kept significantly small to precisely cancel the comparator offset.  
+The delay of the comparator increases, as the input signal amplitude decreases. The input amplitude for which the comparator gives maximum allowed delay for proper functioning at a given frequency is called the sensitivity of the comparator. The input's vertical eye opening must be greater than or equal to the sensitivity number for correct detection of data. The noise and offset of the comparator can result in a smaller perceived eye opening, which, if goes below the sensitivity of the slicer, can cause large BER. The Current Steering DAC is used to calibrate the offset of the comparator using reference branch to minimize the offset's effect on input eye-opening. During the calibrating sequence, a slow ramp(code sweep) is given at the reference branch to see the code for which the output of the comparator flips, and that code is then set at the reference branch for mission mode of the chip. The Current Steering DAC used provides many benefits including fast and glitch-free transient response, low ground bounce, and natural differential output required for the comparator. The DAC is fully controlled using Thermometric logic, which ensures low Differential and Integral Non-Linearities (DNL-INL).
 
 <div class="container-fluid text-center mt-4 p-0">
   <img class="img-responsive col-12 col-sm-10 col-md-6 ml-auto mr-auto" src="{{ '/assets/img/current_steering_dac.svg' | prepend: site.baseurl | prepend: site.url }}" alt="overview figure">
-  <h6 class="font-italic text-center mt-2" style="color: #78909c;"><u>Figure 7:</u> N Bit Thermometric Current Steering DAC</h6>
+  <h6 class="font-italic text-center mt-2" style="color: #78909c;"><u>Figure 6:</u> N Bit Thermometric Current Steering DAC</h6>
 </div>
 
 
 <h3 class="title mt-4 p-0 text-left">TSPC Flip-Flops</h3>
-Designing high speed, low power flip-flops is crucial, since they are used appropriately for many operations in the Analog Domain, including delaying the signals for DFE, high speed first-order phase detector for CDR, and for deserializing the data. Understanding how to get desired setup times, hold times, and latency for minimum trade-off with power is instrumental, and can help meet crucial power budgets. I have written a seperate article explaining and stressing on these trade-offs for a TPSC here.
+Designing high-speed, low-power flip-flops is crucial, since they are omnipresent in the transceiver systems. Understanding how to get desired setup time, hold time, and clock-to-q delay with minimum possible power consumption can help meet crucial power budgets. I have written a seperate article explaining and stressing on these trade-offs for a TPSC flop <a href="https://yatingilhotra.github.io/projects/tspc/" target="_blank"> here </a>.
 
 <h3 class="title mt-4 p-0 text-left">Clock Tree</h3>
 
-The maximum frequency of the clock on which a system can run is limited by the latency of individual elements. For example, the maximum frequency of clock, \\(f_{clk}\\) (minimum Time Period \\(T_{min}\\)) for a two-flop system, as shown in Figure 8, is decided by the time \\(t_1\\), the clock to output delay of the flop, \\(t_2\\), latency of the logic, and \\(t_{setup}\\), the setup time of the flop. For reliable operation, the two flop system must follow this relation:
+The maximum frequency of the clock on which a system can run is limited by the latency of individual elements. For example, the maximum frequency of clock, \\(f_{clk}\\) (minimum Time Period \\(T_{min}\\)) for a two-flop system, as shown in Figure 7, is decided by the time \\(t_1\\), the clock-to-q delay of the flop, \\(t_2\\), latency of the logic, and \\(t_{setup}\\), the setup time of the flop. For reliable operation, the two flop system must follow this relation:
 
 $$ {\bf t}_1 + {\bf t}_2 + {\bf t}_{setup} < {\bf T_{min}}$$
 
 <div class="container-fluid text-center mt-4 p-0">
   <img class="img-responsive col-12 col-sm-10 col-md-6 ml-auto mr-auto" src="{{ '/assets/img/clock_system.svg' | prepend: site.baseurl | prepend: site.url }}" alt="overview figure">
-  <h6 class="font-italic text-center mt-2" style="color: #78909c;"><u>Figure 8:</u> A two flop clock system</h6>
+  <h6 class="font-italic text-center mt-2" style="color: #78909c;"><u>Figure 7:</u> A two flop system</h6>
 </div>
 
-This is when we consider the clocks to be ideal. If we also account for the non-idealities of the clocks like the phase to phase mismatch among different phases of the clocks, and random/deterministic jitter on the clocks, the minimum time period equation reduces to:
+This is when we consider the clocks to be ideal. If we also account for the non-idealities of the clocks like the phase to phase mismatch among different phases of the clocks, and random/deterministic jitter on the clocks, the minimum time period equation becomes:
 
 $$ {\bf t}_1 + {\bf t}_2 + {\bf t}_{setup} + {\bf t}_{skew} + {\bf t}_{jitter} < {\bf T_{min}},$$
 
-If these non-idealities are not in check, they lead either to slower communication systems, or high Bit Error Rates in faster communication systems. Therefore, it is critical to budget these parameters, and design for these parameters while implementing the clock tree. This can be taken care of, by designing sufficiently big sized clock buffers, so that there is less mismatch between multiple instances, and also by carefull, systematic and symmetric layout strategies to distribute these clocks.  
+If these non-idealities are not in check, they lead either to slower communication systems, or high Bit Error Rates in faster communication systems. Therefore, it is critical to budget these parameters, and design for these parameters while implementing the clock tree. This can be taken care of, by designing sufficiently big sized clock buffers, so that there is less mismatch between multiple instances, and also by meticulous, and symmetric layout strategies to distribute these clocks.
 
 
 

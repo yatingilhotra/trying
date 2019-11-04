@@ -1,9 +1,9 @@
 %!PS-Adobe-3.0 EPSF-3.0
 %%Title: summer.ps
 %%Creator: XCircuit v3.8 rev78
-%%CreationDate: Mon Oct 21 20:12:39 2019
+%%CreationDate: Mon Nov  4 22:55:34 2019
 %%Pages: 1
-%%BoundingBox: 68 68 535 446
+%%BoundingBox: 68 68 544 240
 %%DocumentNeededResources: font Helvetica Times-Roman 
 %%EndComments
 %%BeginProlog
@@ -247,31 +247,6 @@ begingate
 endgate
 } def
 
-/generic::circle {
-% trivial
-begingate
-1 1.000 16 0 6 0.000 360.000 xcarc
-1 1.000 0 0 10 0 2 polygon
-1.000 0.000 0.000 scb
-(out) {/Times-Roman cf} 2 4 0 1.000 16 0 pinlabel
-(out) {/Times-Roman cf} 2 7 0 1.000 0 0 pinlabel
-endgate
-} def
-
-/analog::switch {
-% trivial
-begingate
-1 1.300 32 32 2 -43 2 polygon
-1 0.600 0 -48 57 49.000 90.000 xcarc
--1.000 /sv 90 0 -64 generic::circle
-0.600 /sv 270 -12 8 generic::arrowhead
-1.000 90 0 48 generic::circle
-1.000 0.000 0.000 scb
-(sw.1) {/Times-Roman cf} 2 9 0 1.000 0 48 pinlabel
-(sw.2) {/Times-Roman cf} 2 13 0 1.000 0 -64 pinlabel
-endgate
-} def
-
 /generic::dot {
 % trivial
 begingate
@@ -287,62 +262,61 @@ endgate
 %%Page: summer 1
 %%PageOrientation: Portrait
 /pgsave save def bop
-1.0000 inchscale
-2.6000 setlinewidth 576 620 translate
+0.7564 inchscale
+2.6000 setlinewidth 653 681 translate
 
 0.000 0.000 0.000 scb
 1.000 0 -256 -96 analog::nmos2
 -1.000 0 0 -96 analog::nmos2
 1 1.000 -256 -32 -256 16 2 polygon
 1 1.000 0 -32 0 16 2 polygon
-1.000 0 480 -96 analog::nmos2
--1.000 0 736 -96 analog::nmos2
-1 1.000 480 -160 480 -192 736 -192 736 -160 4 polygon
+1.000 0 320 -96 analog::nmos2
+-1.000 0 576 -96 analog::nmos2
+1 1.000 320 -160 320 -192 576 -192 576 -160 4 polygon
 1 1.000 0 -160 0 -192 -256 -192 -256 -160 4 polygon
 1 1.000 -128 -240 -128 -192 2 polygon
-1 1.000 608 -240 608 -192 2 polygon
+1 1.000 448 -240 448 -192 2 polygon
 1.000 0 -128 -368 analog::gnd
-1.000 0 608 -368 analog::gnd
+1.000 0 448 -368 analog::gnd
 sce
-(vin+) {/Helvetica cf} 2 16 0 1.000 -384 -96 label
-(vin-) {/Helvetica cf} 2 16 0 1.000 64 -96 label
+(vin+) {/Helvetica cf} 2 16 0 1.000 -400 -112 label
+(vin-) {/Helvetica cf} 2 16 0 1.000 80 -112 label
 1.000 0 -128 -304 analog::isource
-1.000 0 608 -304 analog::isource
-1 1.000 560 -352 656 -256 2 polygon
-1.000 45 656 -256 generic::arrowhead
-1 1.000 800 -48 832 -48 2 polygon
-(S1) {/Helvetica cf} 2 16 0 1.000 800 -80 label
-(S1) {/Helvetica cf} 2 16 0 1.000 384 -80 label
-(|H2|) {/Helvetica cf} 2 16 0 1.000 672 -320 label
-1.000 90 288 384 analog::switch
-1.000 90 288 240 analog::switch
-1 1.000 224 384 -256 384 -256 0 3 polygon
-1 1.000 224 240 0 240 0 16 3 polygon
-1.000 90 288 160 analog::switch
-1.000 90 288 16 analog::switch
-1 1.000 480 -32 480 80 336 80 336 160 4 polygon
-1 1.000 336 80 336 16 2 polygon
-1 1.000 224 160 -256 160 2 polygon
-1 1.000 224 16 0 16 2 polygon
-1 1.000 336 240 336 384 2 polygon
-1 1.000 336 304 736 304 736 -32 3 polygon
-(T) {/Helvetica cf} 2 16 0 1.000 240 336 label
-1 1.000 240 288 272 288 2 polygon
-(T) {/Helvetica cf} 2 16 0 1.000 240 256 label
-1 1.000 240 128 272 128 2 polygon
-(T) {/Helvetica cf} 2 16 0 1.000 240 96 label
-(T) {/Helvetica cf} 2 16 0 1.000 240 32 label
-1.000 0 -256 160 generic::dot
-1.000 0 0 16 generic::dot
-1 1.000 -256 384 -256 544 2 polygon
-1 1.000 0 240 0 480 96 480 3 polygon
-1 1.000 -256 544 96 544 2 polygon
-1.000 90 96 544 generic::arrowhead
-1.000 90 96 480 generic::arrowhead
-1.000 0 -256 384 generic::dot
-1.000 0 0 240 generic::dot
-(vo-) {/Helvetica cf} 2 16 0 1.000 112 544 label
-(vo+) {/Helvetica cf} 2 16 0 1.000 112 480 label
+1.000 0 448 -304 analog::isource
+1 1.000 400 -352 496 -256 2 polygon
+1.000 45 496 -256 generic::arrowhead
+(|H2|) {/Helvetica cf} 2 16 0 1.000 512 -320 label
+1.000 90 1248 144 generic::arrowhead
+1.000 90 1248 80 generic::arrowhead
+(vo-) {/Helvetica cf} 2 16 0 1.000 1184 112 label
+(vo+) {/Helvetica cf} 2 16 0 1.000 1184 32 label
+1 1.000 1248 80 0 80 0 16 3 polygon
+1 1.000 -256 16 -256 144 1248 144 3 polygon
+1 1.000 320 -32 320 80 2 polygon
+1 1.000 576 -32 576 144 2 polygon
+1.000 0 320 80 generic::dot
+1.000 0 576 144 generic::dot
+0.000 0.000 0.000 scb
+1.000 0 864 -96 analog::nmos2
+-1.000 0 1120 -96 analog::nmos2
+1 1.000 864 -160 864 -192 1120 -192 1120 -160 4 polygon
+1 1.000 992 -240 992 -192 2 polygon
+1.000 0 992 -368 analog::gnd
+sce
+1.000 0 992 -304 analog::isource
+1 1.000 944 -352 1040 -256 2 polygon
+1.000 45 1040 -256 generic::arrowhead
+1 1.000 864 -32 864 80 2 polygon
+1 1.000 1120 -32 1120 144 2 polygon
+(S2) {/Helvetica cf} 2 16 0 1.000 192 -112 label
+(S2) {/Helvetica cf} 2 16 0 1.000 656 -112 label
+1 1.000 656 -80 704 -80 2 polygon
+(|H3|) {/Helvetica cf} 2 16 0 1.000 1040 -320 label
+1.000 0 864 80 generic::dot
+1.000 0 1120 144 generic::dot
+(S3) {/Helvetica cf} 2 16 0 1.000 736 -112 label
+(S3) {/Helvetica cf} 2 16 0 1.000 1200 -112 label
+1 1.000 1200 -80 1248 -80 2 polygon
 pgsave restore showpage
 
 %%Trailer
