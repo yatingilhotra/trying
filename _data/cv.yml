@@ -31,25 +31,25 @@
         - title: '<b>10-1.6Gb/s Multi Protocol RX</b>'
           contents:
             - Designed 1-Tap Speculative, 5 Tap DFE, Samplers, Offset-Cancellation Loop, Current Steering DAC, Clock Tree, High Speed TSPC Flops, and Deserializer for 1.6-10Gb/s Multi-Protocol RX on TSMC 40nm.
-            - Enhanced Samplers to achieve low sensitivity, and designed for low kickback, and random noise, with minimal trade-off in power.
-            - Designed a low offset Common-Mode Feedback Loop, for precise Common Mode matching between input and reference branches of samplers. Extensive analysis done for high stability margins, good PSRR, and rms-noise of the loop.
-            - Designed a low power, high precision Current Steering DAC with less than 1-LSB INL, with programmable range(1x-4x).
-            - Implemented a skew calibration scheme for precise on-chip clock-data alignment. Designed clock tree for low DJ, RJ, and Phase Mismatch.
-            - Devised and implemented from scratch, a single Deserializer solution compliant with all the targeted communication protocols.
+            - Designed a highly sensitive, energy efficient <b>5GHz Dynamic Comparator</b> with low kickback, and random noise.
+            - Designed a low offset <b>Common-Mode Feedback Loop</b>, for precise Common Mode matching between input and reference branches of samplers. Extensive analysis done for high stability margins, good PSRR, and rms-noise of the loop.
+            - Designed a low power, high precision <b>Current Steering DAC</b> with less than 1-LSB INL, with programmable range(1x-4x).
+            - Devised a <b>Skew Calibration</b> scheme for precise on-chip clock-data alignment. Designed <b>Clock Tree</b> for low DJ, RJ, and Phase Mismatch.
+            - Developed a programmable <b>Deserializer</b> solution compliant with all the targeted communication protocols.
         - title: '<b>12-0.25Gb/s Loopback Test, HDMI2.1 TX</b>'
           contents:
             - Designed and Developed a configurable 0.25-12Gb/s Delay Locked Loop based Near End, Horizontal Eye Loopback-Test for HDMI2.1 TX production testing, on TSMC-28nm.
         - title: '<b>General Responsibilities</b>'
           contents:
-            - Responsibilities include participating, and critiquing in periodic design reviews. Reporting, and working closely with CAD teams in solving Custom Compiler, HSPICE, and FineSim(Design Tools) bugs. Conducting regular update meetings and design reviews with customers.
+            - Participating, and critiquing in periodic design reviews. Reporting, and working closely with CAD teams in solving Custom Compiler, HSPICE, and FineSim bugs. Conducting regular update meetings and design reviews with customers.
     - title: 'Research Intern at Polystim Neurotechnologies Lab, Polytechnique Montreal'
       year: 2017
       description:
       - <u>Mentor:</u> <a href="http://www.mohamadsawan.org/" target="_blank"><b>Prof. Mohamad Sawan</b></a>
       - <u>Project:</u> An adaptive thresholding Smoothed-Teager Energy Operator(STEO) action-potential detector based on Qn estimator of scale(a robust statistics method).
-      - Improved the spike detection algorithm from taking \(O(N^2)\) time and \(O(N^2)\) space to warranting \(O(NlogN)\) time and \(O(N)\) space.
-      - Ran rigorous simulations on golden-truth data generated from the real extra-cellular neural recordings from the hippocampus of a monkey.
-      - Qn-STEO algorithm outperforms many state-of-the-art spike detection algorithms, in binary hypothesis metrics including Accuracy, Sensitivity, and Specificity.
+      - Improved <b>Qn-STEO</b> spike detection algorithm from taking \(O(N^2)\)  time and space to warranting \(O(N)\) space, and \(O(NlogN)\) time.
+      - Ran rigorous simulations on golden-truth data generated from the real extra-cellular neural recordings from hippocampus of a monkey.
+      - New <b>Qn-STEO</b> algorithm outperforms many state-of-the-art spike detection algorithms in binary hypothesis metrics including Accuracy, Sensitivity, and Specificity.
     - title: 'Research Intern, VLSI Tools and Technologies(VDTT) Lab, Indian Institute of Technology(IIT)-Delhi'
       year: 2016
       description:
