@@ -7,9 +7,33 @@ description: ultra low power neuron implementation for large scale neuromorphic 
 img: /assets/img/neuron.png
 ---
 
+<b>Dynamic Translinear Principle(DTP)</b> has proven to be an effective technique to map neuronal membrane equations following sophisticated computational models on energy-efficient subthreshold MOSFETs. The technique allows to closely mimic brain's analog computational dynamics using minimum transistor resourses. DTP requires biological neuron models to be converted into dimensionless form. The dimensionless models could then easily be realized and synthesized onto <b>Log-Domain Circuits</b>(a class of circuits based on subthreshold MOSFETs following an exponential I-V characteristics), where a dimensionless variable \\(x\\) is represented by the ratio of two currents.
+
+$$x = \frac{I_1}{I_2}$$
+
+For any circuit, mean power consumed is the simple multiplication of the supply voltage with the average current drawn from it over a period of time (\\(P_{avg} = VDD*I_{avg}\\)). Log-Domain circuits allow aggressive down-scaling of the supply voltage because of their inherent ability to provide high dynamic range. This benefit has been explored in a great extent in many low-power biomedical/implantable circuits. This research project particularly focuses on reducing the current that the circuit consumes in order to lower the power consumption. Since the values of interest in the circuit realization are <b>ratios of currents, and not absolute currents</b>, the values of currents \\(I_1\\) and \\(I_2\\) are reduced while maintaining the ratio of interest. This allows aggressive down-scaling of power(potentially by orders of magnitude) by exploiting both voltage and current-domain fronts of log-domain circuits, and brings us closer to achieving the brain's energy density.
+
+This research explores many techniques including <b>Reverse Body Biasing</b>, <b>Source Voltage Shifting</b>, and <b> Bulk-Driven Circuits</b> as methods to drastically reduce absolute currents consumed by log-domain neurons. These techniques are used in very specific log-domain topologies to leverage their benefits, while suppressing any avoidable second-order effects. The widely popular biological-time, two-dimensional <b>Adaptive Exponential(AdEx) Integrate and Fire Neuron</b> model is implemented using the above mentioned techniques to save more than 10 times power than the present state-of-the-art AdEx implementations.
+
+<div class="alert alert-danger" role="alert">
+  <b>NOTE:</b> This page will soon be updated with all the findings and the actual paper link.
+</div>
+
 
 
 {%comment%}
+
+Designing ultra-energy-efficient artificial neurons is rudimentary to create brain-like intelligent and highly integrated computing systems. [A Neuromorph's Prospectus] shows that brain achieves it's energy density by doing its computation in the analog-domain, and communication in the digital domain. Analog computation facilitates erroneous low power operation by using extremely low currents and voltages to process the synaptic inputs. Log-domain   
+
+
+Overture: the challenges of neuron architectures. want to connect neurons to 1000s of others. same time want to go to as low currents as possible. leakage stops us from going to lower currents. further more, log-domain works on low currents. reducing the currents to extremely low values using leakage reduction techniques.
+
+Understanding the complicated and large scale synaptic connections in the critical areas of the brain, and mapping them onto energy-efficient brain-like circuits is the next challenge in brain inspired computing. Achieving extremely low energy density computations could make our relentless pursuit to powerful computing systems go on. It could also be the key to some of the technological advancements which could arguably dictate humanity's future for the next century. We have just started to harness the power of brain on circuits, and there are already cornerstone strides happening in the fields of Autonomous Robotic Systems, Cybersecurity, Financial Technology, amd Mobile Computing. On our way to build intelligent computer, which could pass the Turing test, and further down the road, a silicon consciousness, conflated with the wireless-advancements(6G), could create a cyborg reality, with systems controlled wirelessly by super-intelligent computers. All of this starts by achieving efficient on-chip neurons. Many    
+
+The key to energy efficient scalability, and training of the circuit parameters lies in the neuron model mimicking the neuronal activity. Low-dimensional neuronal models have proven to provide enough biological accuracy, while allowing pragmatic tuability of parameters. Parallelly, research on log-domain circuits has allowed the design of low-voltage, high dynamic range circuits, also allowing the implementation of complex mathematical functions. Many log domain implementations of various computational models have been reported so far. Neurogrid uses analog computation, and digital communication, just like the brain in order to achieve brain's energy efficiency.
+
+Using log-domain concept, the dimensionless computational models could be mapped on the circuits, and the currents in the specific branches represent variables corresponding to the computational models. We articulate methods to reduce the current consumption of log domain topologies, and implementing certain neuron models.    
+
 
 This library is a Scala API for [https://www.tensorflow.org](https://www.tensorflow.org). It attempts to provide most of
 the functionality provided by the official Python API, while at the same type being strongly-typed and adding some new

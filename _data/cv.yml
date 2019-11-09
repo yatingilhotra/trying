@@ -22,12 +22,12 @@
     - title: 'Analog and Mixed Signal Design Engineer, Synopsys Inc.'
       year: 2018-NOW
       description:
-        - Youngest design contributor in a highly specialized team of members with minimum 6 years of experience.
-        - Developed and Delivered two products to customers within a span of one year.
-        - Development goal aims at achieving minimum power/Gbps, and to achieve high performance, and high yield systems.
+        - <b>Youngest</b> Analog Design Engineer in highly experienced High-Speed SerDes Design Group, Synopsys.
+        - Developed and delivered two products to customers within a span of one year.
+        - Development goal aims at achieving minimum power/Gbps form factor, and to achieve high performance, and high yield communication systems.
         - title: '<b>112Gb/s TX for 400GBASE/800GBASE Ethernet</b>'
           contents:
-            - NRZ and PAM-4, 5-tap FFE, DAC based Transmitter designed on 7nm FinFET. Improved significantly on power and area efficiency. Developed robust design for Jitter, SNDR, ENOB, and Output Swing across PVT, and Mismatch variations.
+            - Worked on NRZ and PAM-4, 5-tap FFE, 1.2V DAC based Transmitter on 7nm FinFET. Developed power and area efficient design robust for Jitter, SNDR, ENOB, and Output Swing across PVT, and Mismatch variations.
         - title: '<b>10-1.6Gb/s Multi Protocol RX</b>'
           contents:
             - Designed 1-Tap Speculative, 5 Tap DFE, Samplers, Offset-Cancellation Loop, Current Steering DAC, Clock Tree, High Speed TSPC Flops, and Deserializer for 1.6-10Gb/s Multi-Protocol RX on TSMC 40nm.
@@ -67,8 +67,8 @@
     - title: Delhi Technological University(formerly Delhi College of Engineering)
       year: 2014-2018
       description:
-        - '<u>Percentage</u> <b>81.54%</b>'
-        - '<u>Awarded</u>: <b>First Class with Distinction</b> in <i>Electronics and Communication Engineering</i>'
+        - '<u>Percentage:</u> <b>81.54% (top 5% in class of 200), First Class with Distinction</b> in <i>Electronics and Communication Engineering.</i>'
+        - 'Equivalent to <b>4.0 GPA</b> in USA grading system.'
         - '<u>Advisor:</u> <a href="http://dtu.irins.org/profile/66992" target="_blank"><b>Prof. Rajeshwari Pandey</b></a>, <u>Co-Advisor:</u> <a href="http://dtu.irins.org/profile/66991" target="_blank"><b>Prof. Neeta Pandey</b></a>.'
         - title: 'Ultra-Low Power, Ultra Low Transconductance <i>Gm-C</i> OTA for Sub-Hertz applications using Dynamic Thresholding, and Subthreshold Operation.'
           contents:
@@ -77,7 +77,7 @@
         - title: 'OTRA based Voltage-Transfer Curve Generation for High Frequency applications'
           contents:
             - Studied the benefits of current mode analog signal processing, and developed OTRA based high frequency signal generators and rectifiers.
-        - title: 'Research Assistant, <a href="http://dsad.in/" target="_blank"><b>Digital System Architecture and Design (DSAD) Group</b></a>.'
+        - title: '<b>Research Assistant</b>, <a href="http://dsad.in/" target="_blank"><b>Digital System Architecture and Design (DSAD) Group</b></a>.'
           contents:
             - <u>Advisor:</u> <a href="http://dtu.irins.org/profile/66991" target="_blank"><b> Prof. Neeta Pandey</b></a>.
         - title: 'An FPGA Based Floating Point Gauss-Seidel Iterative Solver.'
