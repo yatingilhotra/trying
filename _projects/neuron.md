@@ -11,17 +11,24 @@ img: /assets/img/neuron.png
 
 $$x = \frac{I_1}{I_2}$$
 
-For any circuit, mean power consumed is the simple multiplication of the supply voltage with the average current drawn from it over a period of time (\\(P_{avg} = VDD*I_{avg}\\)). Log-Domain circuits allow aggressive down-scaling of the supply voltage because of their inherent ability to provide high dynamic range. This benefit has been explored in a great extent in many low-power biomedical/implantable circuits. This research project particularly focuses on reducing the current that the circuit consumes in order to lower the power consumption. Since the values of interest in the circuit realization are <b>ratios of currents, and not absolute currents</b>, the values of currents \\(I_1\\) and \\(I_2\\) are reduced while maintaining the ratio of interest. This allows aggressive down-scaling of power(potentially by orders of magnitude) by exploiting both voltage and current-domain fronts of log-domain circuits, and brings us closer to achieving the brain's energy density.
+For any circuit, mean power consumed is the multiplication of the supply voltage with the average current drawn from it over a period of time (\\(P_{avg} = VDD*I_{avg}\\)). Log-Domain circuits allow aggressive down-scaling of the supply-voltage because of their inherent ability to provide high dynamic range. This benefit has been explored to a great extent in many low-power circuits for biomedical applications. This research project particularly focuses on reducing the current that the circuit consumes in order to lower the power consumption. Since the variables of interest in the circuit realization are <b>ratios of currents, and not absolute currents</b>, the values of currents \\(I_1\\) and \\(I_2\\) are reduced while maintaining the ratio of interest. This allows aggressive down-scaling of power (potentially by orders of magnitude) by exploiting both supply-voltage and current reduction in log-domain circuits for synthesizing artifical neurons, and brings us closer to achieving the brain's energy efficiency.
 
-This research explores many techniques including <b>Reverse Body Biasing</b>, <b>Source Voltage Shifting</b>, and <b> Bulk-Driven Circuits</b> as methods to drastically reduce absolute currents consumed by log-domain neurons. These techniques are used in very specific log-domain topologies to leverage their benefits, while suppressing any avoidable second-order effects. The widely popular biological-time, two-dimensional <b>Adaptive Exponential(AdEx) Integrate and Fire Neuron</b> model is implemented using the above mentioned techniques to save more than 100 times power than the present state-of-the-art AdEx implementations including <a href="https://ieeexplore.ieee.org/document/8419063" target="_blank"> <b>BrainScale's AdEx Neuron(The Human Brain Project)</b></a>.
+
+This project analyzes the use of <b>Reverse-Body-Biasing</b> and <a href="https://ieeexplore.ieee.org/document/1214728" target="_blank"> <b>Source Voltage Shifting</b> </a> in Stacked and Alternate Log-Domain Configurations to lower the range of operation of currents in subthreshold CMOS. The analysis and simulations establish the efficacy of source-voltage-shifting conflated with stacked log-domain configuration as a suitable design choice for extremely-energy-efficient mapping of neuronal membrane dynamics on silicon for large-scale neuromorphic cores. A two-variable, programmable biological-time and accelerated-time Adaptive Exponential(AdEx) Integrate and Fire Neuron  is designed, leveraging the current-reduction theory in log-domain circuits, which generates important spiking patterns including regular spiking, spike-frequency adaptation, intrinsic bursting, and accelerated and decelerated spike-triggered adaptation. The artificial neuron implemented in 130nm CMOS consumes 1pJ/spike at 300Hz spiking frequency, two-hundred times less than state-of-the-art <a href="https://ieeexplore.ieee.org/document/8419063" target="_blank"> <b>BrainScale's AdEx Neuron(The Human Brain Project)</b></a>.
+
+
 
 <div class="alert alert-danger" role="alert">
-  <b>NOTE:</b> This page will soon be updated with all the findings and the actual paper link.
+  <b>NOTE:</b> This page will shortly be updated with the findings and results.
 </div>
 
 
 
 {%comment%}
+
+This project explores many techniques including <b>Reverse Body Biasing</b>, <b>Source Voltage Shifting</b>, and <b> Bulk-Driven Circuits</b> as methods to reduce absolute currents consumed by log-domain neurons. These techniques are used in very specific log-domain topologies to leverage their benefits, while suppressing any avoidable second-order effects. The widely popular biological-time, two-dimensional <b>Adaptive Exponential(AdEx) Integrate and Fire Neuron</b> model is implemented using the above mentioned techniques to save more than 100 times power than the present state-of-the-art AdEx implementations including <a href="https://ieeexplore.ieee.org/document/8419063" target="_blank"> <b>BrainScale's AdEx Neuron(The Human Brain Project)</b></a>.
+
+
 
 Designing ultra-energy-efficient artificial neurons is rudimentary to create brain-like intelligent and highly integrated computing systems. [A Neuromorph's Prospectus] shows that brain achieves it's energy density by doing its computation in the analog-domain, and communication in the digital domain. Analog computation facilitates erroneous low power operation by using extremely low currents and voltages to process the synaptic inputs. Log-domain   
 

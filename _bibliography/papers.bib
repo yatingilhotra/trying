@@ -5,11 +5,11 @@
 \begin{filecontents}
 
 @inproceedings{Gilhotra:2019,
-  title         = {{Mapping Adaptive Exponential Spiking Neuron Model to Picoampere Currents}},
+  title         = {{Mapping Adaptive Exponential Integrate and Fire Neuron Model to Picoampere Currents}},
   author        = {Yatin Gilhotra and Sirish Oruganti and Rajeshwari Pandey},
   year          = {2019},
-  booktitle     = {Writing. To be submitted to IEEE Transactions on Biomedical Circuits and Systems},
-  abstract      = {In this paper, we describe the design of adaptive exponential(AdEx) integrate and fire neuron model using log domain state-space synthesis. We emphasize on the implementation of mathematical models of membrane charge-discharge process, using dynamic translinear principle, because of inherent ability of the approach to scale the currents down to arbitrarily low values, which results in extremely low power implementations. We describe the techniques used to achieve lower currents including reverse body biasing, and source voltage shifting, and we also analyze the translinear topologies supporting the use of such current reduction techniques. In the end, we map the membrane potential goverened by two variable AdEx model on picoampere currents using the described topologies.}
+  booktitle     = {Writing. To be submitted to IEEE Transactions on VLSI Systems},
+  abstract      = {In this paper, we describe the design of two variable Adaptive Exponential (AdEx) Integrate-and-Fire neuron model using dynamical systems approach and log-domain circuits. We explore reverse-body-biasing and source-voltage-shifting as leakage-bed reduction methods in stacked and alternate log-domain configurations to lower the range of operation of currents in subthreshold CMOS. The analysis and simulations articulate the efficacy of source-voltage-shifting conflated with stacked log-domain configuration as a suitable design choice for extremely-energy-efficient mapping of neuronal membrane dynamics on silicon for large-scale neuromorphic cores. The programmable biological-time and accelerated-time AdEx neuron leveraging the current-reduction theory in log-domain circuits generates important spiking patterns including regular spiking, spike-frequency adaptation, intrinsic bursting, and accelerated and decelerated spike-triggered adaptation. The artificial neuron implemented in 130nm CMOS consumes 1pJ/spike at 300Hz spiking frequency.}
 }
 
 
