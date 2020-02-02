@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Yatin Gilhotra | Multi-Protocol Receiver</title>
+  <meta name="description" content="My personal website.
+">
+
+  <!-- Fonts and Icons -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons" />
+
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="/assets/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/academicons.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="canonical" href="/projects/multi_prot_rx/">
+</head>
+<body>
+  <!-- Header -->
+  <nav id="navbar" class="navbar fixed-top navbar-expand-md grey lighten-5 z-depth-1 navbar-light">
+    <div class="container-fluid p-0">
+      
+        <a class="navbar-brand title font-weight-lighter" href="/"><span class="font-weight-bold">Yatin</span> Gilhotra</a>
+      
+      <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse text-right" id="navbarNav">
+        <ul class="navbar-nav ml-auto flex-nowrap">
+          <li class="nav-item ">
+            <a class="nav-link" href="/">
+              about
+              
+            </a>
+          </li>
+          
+            
+          
+            
+              <li class="nav-item ">
+                  <a class="nav-link" href="/cv/">
+                    cv
+                    
+                  </a>
+              </li>
+            
+          
+            
+          
+            
+              <li class="nav-item navbar-active font-weight-bold">
+                  <a class="nav-link" href="/projects/">
+                    projects
+                    
+                      <span class="sr-only">(current)</span>
+                    
+                  </a>
+              </li>
+            
+          
+            
+              <li class="nav-item ">
+                  <a class="nav-link" href="/publications/">
+                    publications
+                    
+                  </a>
+              </li>
+            
+          
+            
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Scrolling Progress Bar -->
+  <progress id="progress" value="0">
+    <div class="progress-container">
+      <span class="progress-bar"></span>
+    </div>
+  </progress>
+
+  <!-- Content -->
+  <div class="container-fluid mt-4">
+    <nav aria-label="breadcrumb">
+  <ol class="breadcrumb p-0 text-lowercase">
+    <li class="breadcrumb-item"><a href="/">home</a></li>
+    <li class="breadcrumb-item"><a href="/projects">projects</a></li>
+    <li class="breadcrumb-item active">Multi-Protocol Receiver</li>
+  </ol>
+</nav>
+
+<div class="row m-0" style="width: 100%;">
+  <div class="col-sm-12 p-0">
+    <h1>Multi-Protocol Receiver</h1>
+    <h5 class="mb-4">a 10Gbps-1.6Gbps receiver supporting various ethernet, usb, and display port communication protocols</h5>
+  </div>
+  <!-- <div class="col-sm-2 p-0 mt-auto mb-auto">
+    <img src="/assets/img/multi_prot_rx.svg" alt="project thumbnail">
+  </div> -->
+</div>
+
+<div class="container-fluid p-0 text-justify">
+  <div class="container-fluid p-0">
+  <img class="img-responsive col-12" src="/assets/img/multi_prot_rx.svg" alt="overview figure" />
+  <h6 class="font-italic text-center" style="color: #78909c;"><u>Figure 1:</u> Overview of the receiver. My design contribution includes (a) Summmer, (b) Offset Correction Loop, (c) Samplers, (d) Data Paths(TSPC Flops), (e) Clock Tree, (f) Deserializer</h6>
+</div>
+
+<p><b>High Speed Serial Interfaces (HSSI)</b> are the backbone of modern communication systems. They take data from multiple slower lanes and convert them into a single high-speed serial lane in order to send the data through long channels. As the speed of these communication links increases, the signal suffers more attenuation while passing through a channel which may be a PCB, a coaxial cable, an optical fiber, or an inductively coupled link. The channel virtually follows a Low Pass Response, with occasional deviations because of impedance mismatches in the channel. For high-frequency signals, the channel loss is usually so high that the signal at the end of the channel becomes unreadable. It becomes of paramount importance to properly equalize the channel’s response in order to have good detection. There are two primary techniques to equalize the channel response, one is <b>CTLE (Continuous Time Linear Equalizer)</b>, and the other one is <b>DFE (Decision Feedback Equalizer).</b></p>
+
+<p>CTLE, as the name suggests, is a linear equalization scheme, and generates a high pass response nullifying the low pass response of the channel. It does a pretty good job of amplifying the signal, but the drawback is that it amplifies noise as well. Moreover, since the channel is not exactly Low Pass, a High Pass equalization is not enough to account for the deviations in the frequency response of the channel. Decision Feedback Equalizer is a non-linear equalization scheme that compensates for the dispersion that occurs in the channel. It also removes the noise in the analog signal by sampling it. More often than not, both CTLE and DFE are required to optimally equalize the channel’s response.</p>
+
+<p>In this particular receiver implementation shown in Figure 1, both CTLE and DFE are employed to compensate for the signal losses. The equalized data is sampled using a low-noise, offset calibrated comparator, which is itself a part of the DFE loop. After sampling, the data is deserialized into multiple lanes and handed-off to digital for running multiple calibrating sequences and parameter training to achieve low BER (Bit Error Rate).</p>
+
+<p>The following sections explain the basic functioning of the sub-circuits of the Figure-1 receiver, along with the parameters they were designed for:</p>
+
+<h3 class="title mt-4 p-0 text-left">DFE Architecture</h3>
+
+<div class="container-fluid text-center mt-4 p-0">
+  <img class="img-responsive col-12 col-sm-10 col-md-6 ml-auto mr-auto" src="/assets/img/dfe.svg" alt="overview figure" />
+  <h6 class="font-italic text-center mt-2" style="color: #78909c;"><u>Figure 2:</u> A Typical Channel Response</h6>
+</div>
+
+<p>Any channel can be characterized by its impulse response, an example of which can be seen in Figure 2. The difference between each dot on the x-axis represents the Data Unit Interval(UI). The impulse response shows how a particular input bit’s power, after the channel, interferes with other bits. This phenomenon of one bit’s power bleeding into the next bits is known as <b>ISI (Inter-Symbol Interference)</b> and is because of the bandwidth limitation of the channel. The actual bit is recognized by the highest point (main-sample point) in the impulse response, while the other tail values (Post-Cursors) are the unwanted interference of this bit with the next data bits. ISI is minimized by reconstructing the post-cursor values and adding/subtracting them appropriately from the original data that is sampled. This is called <b>Decision Feedback Equalization(DFE)</b> and can be used to minimize previous bits’ interference energy from the present bit in order to achieve accurate digital detection.</p>
+
+<p>A 1-Tap Speculative, 5-Tap DFE architecture(Figure 3) is implemented to effectively cancel the 5 post-cursor taps of the channel response(black in Figure 2) to achieve DFE equalized response(ideally; red in Figure 2). The DFE in concoction with the CTLE and VGA helps in efficient detection of 10Gbps data till 35dB loss channels. The first tap is implemented in an unrolled manner, using the reference branch of the slicer. All other tap information is fed-back by just delaying(resampling), and scaling the comparator output. The DFE follows the following equation:</p>
+
+<script type="math/tex; mode=display">v_{dfe} = v_{in} \pm h_1 \pm h_2 \pm h_3 \pm h_4 \pm h_5</script>
+
+<p>where \(v_{dfe}\) is the DFE equalized signal which comes at the input of slicer, \(v_{in}\) is the input to the DFE system, and \(h1\),\(h2\), \(h3\), \(h4\), \(h5\) are the post-cursor tap magnitudes which are added or subtracted from \(v_{in}\) based on the previous detected bits (0 or 1). The critical paths in the DFE implementation warrant the design of very high-speed comparator, flip-flops(delaying elements), and summer.</p>
+
+<div class="container-fluid p-0">
+  <img class="img-responsive col-12" src="/assets/img/dfe_arch.svg" alt="overview figure" />
+  <h6 class="font-italic text-center" style="color: #78909c;"><u>Figure 3:</u> A 1-Tap Speculative, 5 Tap Decision Feedback Equalizer</h6>
+</div>
+
+<h3 class="title mt-4 p-0 text-left">Summer</h3>
+
+<p>Summer is just an amplifier, which adds or subtracts the tap values based on the previous bit information. The concept of equalization by addition/subtraction is applicable when the system is linear, hence, the linearity of the summer is an important design aspect. As shown in Figure 4, the input to the summer amplifier stage connects to one branch, while the feedback signals \(S\) (based on previous detected bits) from the samplers come to alternate amplifier branches, depending on whose values, a current of certain magnitude linearly adds or subtracts from the input signal. The resultant output \(v_{dfe}\) is the equalized signal which ultimately gets sampled by the slicer. A source degenerated highly linear summer amplifier stage is designed for extremely low output settling time to meet the DFE timing specifications.</p>
+
+<div class="container-fluid text-center mt-4 p-0">
+  <img class="img-responsive col-12 col-sm-10 col-md-6 ml-auto mr-auto" src="/assets/img/summer.svg" alt="overview figure" />
+  <h6 class="font-italic text-center mt-2" style="color: #78909c;"><u>Figure 4:</u> Summer</h6>
+</div>
+
+<h3 class="title mt-4 p-0 text-left">Samplers (Slicer/Comparator)</h3>
+<p>The Slicer is a critical part of the receiver system. It is the stage that converts a very low amplitude signal into streams of perfect 1s and 0s. The popular Strong-Arm Latch based dynamic comparator, is used for sampling the input eye, as shown in Figure 5. The output of the comparator is the most critical signal of the system, as all other on-chip procedures depend on the correctness of this data. Since the input to the comparator can have extremely low amplitudes, the non-idealities of the comparator make it highly susceptible to passing erroneous data. The comparator design is optimized for extremely low input-referred random and kickback noise, while the offset of the comparator is corrected by a highly accurate offset-cancellation system.</p>
+
+<div class="container-fluid text-center mt-4 p-0">
+  <img class="img-responsive col-12 col-sm-10 col-md-6 ml-auto mr-auto" src="/assets/img/comparator.svg" alt="overview figure" />
+  <h6 class="font-italic text-center mt-2" style="color: #78909c;"><u>Figure 5:</u> 1 bit Comparator (Sampler)</h6>
+</div>
+
+<h3 class="title mt-4 p-0 text-left">Current Steering DAC</h3>
+<p>The delay of the comparator increases as the input signal amplitude decreases. The input amplitude for which the comparator gives maximum allowed delay for proper functioning at a given frequency is called the sensitivity of the comparator. The input vertical eye-opening must be greater than or equal to the sensitivity of the comparator for correct detection of data. If the noise and offset of the comparator cause the perceived eye-opening to be smaller than the sensitivity, it will cause erroneous detection. A DAC is used to calibrate the offset of the comparator using a reference branch to minimize the offset’s effect on input eye-opening. During the calibrating sequence, a slow ramp(code sweep) is given to the DAC connected to the reference branch to see the code for which the output of the comparator flips, and that code is then set at the reference branch for mission mode of the chip. The Current Steering DAC used provides many benefits including fast and glitch-free transient response, low ground bounce, and natural differential outputs required for the comparator’s reference branch. The DAC is fully controlled using Thermometric logic, which ensures extremely-low Differential and Integral Non-Linearities (&lt;1LSB).</p>
+
+<div class="container-fluid text-center mt-4 p-0">
+  <img class="img-responsive col-12 col-sm-10 col-md-6 ml-auto mr-auto" src="/assets/img/current_steering_dac.svg" alt="overview figure" />
+  <h6 class="font-italic text-center mt-2" style="color: #78909c;"><u>Figure 6:</u> N Bit Thermometric Current Steering DAC</h6>
+</div>
+
+<h3 class="title mt-4 p-0 text-left">TSPC Flip-Flops</h3>
+<p>Designing high-speed, low-power flip-flops is crucial since they are omnipresent in transceiver systems. Understanding how to get desired setup time, hold time, and clock-to-q delay with minimum possible power consumption can help meet crucial power budgets. I have written a separate article explaining and stressing on these trade-offs for a TPSC flop <a href="https://yatingilhotra.github.io/projects/tspc/" target="_blank"> <b>here</b> </a>.</p>
+
+<h3 class="title mt-4 p-0 text-left">Clock Tree</h3>
+
+<p>The maximum frequency of the clock on which a system can run is limited by the latency of individual elements. For example, the maximum frequency of clock, \(f_{clk}\) (minimum Time Period \(T_{min}\)) for a two-flop system, as shown in Figure 7, is decided by the time \(t_1\), the clock-to-q delay of the flop, \(t_2\), latency of the logic, and \(t_{setup}\), the setup time of the flop. For reliable operation, the two flop system must follow this relation:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+{\bf t}_1 + {\bf t}_2 + {\bf t}_{setup} < {\bf T_{min}} %]]></script>
+
+<div class="container-fluid text-center mt-4 p-0">
+  <img class="img-responsive col-12 col-sm-10 col-md-6 ml-auto mr-auto" src="/assets/img/clock_system.svg" alt="overview figure" />
+  <h6 class="font-italic text-center mt-2" style="color: #78909c;"><u>Figure 7:</u> A two flop system</h6>
+</div>
+
+<p>This is when we consider the clocks to be ideal. If we also account for the non-idealities of the clocks like the phase to phase mismatch among different phases of the clocks, and random/deterministic jitter on the clocks, the minimum time period equation becomes:</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+{\bf t}_1 + {\bf t}_2 + {\bf t}_{setup} + {\bf t}_{skew} + {\bf t}_{jitter} < {\bf T_{min}}, %]]></script>
+
+<p>If these non-idealities are not in check, they lead either to a slower communication system, or higher Bit Error Rates in a faster communication system. Therefore, it is critical to budget these parameters, and design for these parameters while implementing the clock tree. This is taken care of by designing sufficiently big sized CMOS clock buffers so that there is less mismatch between multiple instances, and also by meticulous, and symmetric layout strategies to distribute these clocks.</p>
+
+
+</div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="grey lighten-5 text-dark z-depth-1 text-center">
+    <div>
+      &copy; Copyright 2020 Yatin Gilhotra.
+      
+      
+    </div>
+  </footer>
+
+  <!-- Core JavaScript Files -->
+  <script src="/assets/js/jquery.min.js" type="text/javascript"></script>
+  <script src="/assets/js/popper.min.js" type="text/javascript"></script>
+  <script src="/assets/js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="/assets/js/mdb.min.js" type="text/javascript"></script>
+  <script async="" src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+  <script src="/assets/js/common.js"></script>
+
+  <!-- GitHub Stars -->
+  <script src="/assets/js/github-stars.js"></script>
+  <script type="text/javascript">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </script>
+
+  <!-- Scrolling Progress Bar -->
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var navbarHeight = $('#navbar').outerHeight(true);
+      $('body').css({ 'padding-top': navbarHeight });
+      $('progress-container').css({ 'padding-top': navbarHeight });
+      var progressBar = $('#progress');
+      progressBar.css({ 'top': navbarHeight });
+      var getMax = function() { return $(document).height() - $(window).height(); }
+      var getValue = function() { return $(window).scrollTop(); }
+      // Check if the browser supports the progress element.
+      if ('max' in document.createElement('progress')) {
+        // Set the 'max' attribute for the first time.
+        progressBar.attr({ max: getMax() });
+        progressBar.attr({ value: getValue() });
+
+        $(document).on('scroll', function() {
+          // On scroll only the 'value' attribute needs to be calculated.
+          progressBar.attr({ value: getValue() });
+        });
+
+        $(window).resize(function() {
+          var navbarHeight = $('#navbar').outerHeight(true);
+          $('body').css({ 'padding-top': navbarHeight });
+          $('progress-container').css({ 'padding-top': navbarHeight });
+          progressBar.css({ 'top': navbarHeight });
+          // On resize, both the 'max' and 'value' attributes need to be calculated.
+          progressBar.attr({ max: getMax(), value: getValue() });
+        });
+      } else {
+        var max = getMax(), value, width;
+        var getWidth = function() {
+          // Calculate the window width as a percentage.
+          value = getValue();
+          width = (value/max) * 100;
+          width = width + '%';
+          return width;
+        }
+        var setWidth = function() { progressBar.css({ width: getWidth() }); };
+        setWidth();
+        $(document).on('scroll', setWidth);
+        $(window).on('resize', function() {
+          // Need to reset the 'max' attribute.
+          max = getMax();
+          setWidth();
+        });
+      }
+    });
+  </script>
+
+  <!-- Code Syntax Highlighting -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+  <script src="/assets/js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <!-- Script Used for Randomizing the Projects Order -->
+  <!-- <script type="text/javascript">
+    $.fn.shuffleChildren = function() {
+      $.each(this.get(), function(index, el) {
+        var $el = $(el);
+        var $find = $el.children();
+
+        $find.sort(function() {
+          return 0.5 - Math.random();
+        });
+
+        $el.empty();
+        $find.appendTo($el);
+      });
+    };
+    $("#projects").shuffleChildren();
+  </script> -->
+
+  <!-- Project Cards Layout -->
+  <script type="text/javascript">
+    var $grid = $('#projects');
+
+    // $grid.masonry({ percentPosition: true });
+    // $grid.masonry('layout');
+
+    // Trigger after images load.
+    $grid.imagesLoaded().progress(function() {
+      $grid.masonry({ percentPosition: true });
+      $grid.masonry('layout');
+    });
+  </script>
+
+  <!-- Enable Tooltips -->
+  <script type="text/javascript">
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+  </script>
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', '', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>
